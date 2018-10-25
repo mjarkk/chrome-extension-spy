@@ -39,34 +39,36 @@ func main() {
 
 func copyFullExtension(baseDir string, tempDir string, extensionDir []string) error {
 	extensionDirPath := strings.Join(extensionDir, "/")
-	files, err := ioutil.ReadDir(path.Join(baseDir, extensionDirPath))
+	fullExtensionDirPath := path.Join(baseDir, extensionDirPath)
+	files, err := ioutil.ReadDir(fullExtensionDirPath)
 	if err != nil {
 		return err
 	}
 	for _, file := range files {
 		name := file.Name()
+
 		if file.IsDir() {
 			// create a dir and loop over that dir
-			os.MkdirAll(path.Join(tempDir, extensionDirPath, name), 0664)
+			os.MkdirAll(path.Join(tempDir, extensionDirPath, name), 0777)
 			copyFullExtension(baseDir, tempDir, append(extensionDir, name))
 		} else {
+			fmt.Println("from:", path.Join(fullExtensionDirPath, name))
+			fmt.Println("to:", path.Join(tempDir, extensionDirPath, name))
 			// copy a file over
-			from, err := os.Open(path.Join(baseDir, extensionDirPath, file.Name()))
+			from, err := os.Open(path.Join(fullExtensionDirPath, name))
 			if err != nil {
 				return err
 			}
-			defer from.Close()
-
-			to, err := os.OpenFile(path.Join(tempDir, extensionDirPath, file.Name()), os.O_RDWR|os.O_CREATE, 0666)
+			to, err := os.Create(path.Join(tempDir, extensionDirPath, name))
 			if err != nil {
 				return err
 			}
-			defer to.Close()
-
 			_, err = io.Copy(to, from)
 			if err != nil {
 				return err
 			}
+			from.Close()
+			to.Close()
 		}
 	}
 	return nil

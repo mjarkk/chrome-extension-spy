@@ -1,0 +1,5 @@
+#!/bin/bash
+# A small script to build and run the program
+
+go build
+./chrome-extension-spy
