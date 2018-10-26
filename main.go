@@ -6,35 +6,73 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"os/user"
 	"path"
 	"strconv"
 	"strings"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	output, err := getChromeLocation()
-	if err != nil {
-		panic(err)
-	}
+	printErr(err)
 	fullpath := chromeLoc(output)
-	extensions := getExtensions(fullpath)
-	_, ext := selectExtensionToUse(extensions)
-
+	extensions, fullExtension := getExtensions(fullpath)
+	_, ext, fullExt := selectExtensionToUse(extensions, fullExtension)
 	// create a temp dir to store the extension
 	tempDir, err := ioutil.TempDir("", "chrome-extension-spy")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	// defer os.RemoveAll(tempDir)
-	fmt.Println(tempDir)
-
+	defer os.RemoveAll(tempDir)
+	printErr(err)
 	err = copyFullExtension(ext.fullPkgURL, tempDir, []string{})
+	printErr(err)
+	err = editExtension(tempDir, ext, fullExt)
+	printErr(err)
+	err = startWebServer()
+	printErr(err)
+}
+
+func editExtension(tmpDir string, ext chromeExtension, fullExt extensionManifest) error {
+	// for _, srcItem := range fullExt.Background.Scripts {
+	// 	file, err := ioutil.ReadFile(path.Join(tmpDir, srcItem))
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// 	fmt.Println(string(file))
+	// }
+	return nil
+}
+
+func printErr(err error) {
 	if err != nil {
 		fmt.Println(err)
+		os.Exit(1)
 	}
+}
+
+func proxyHandeler(c *gin.Context) {
+	rawURL := c.Param("url")
+	parsedUrl, err := url.PathUnescape(rawURL)
+	if err != nil {
+		c.String(http.StatusConflict, "")
+	}
+	c.String(http.StatusOK, parsedUrl)
+}
+
+func startWebServer() error {
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.Default()
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	r.Use(cors.New(config))
+	r.GET("/proxy/:url", proxyHandeler)
+	r.POST("/proxy/:url", proxyHandeler)
+	r.Run()
+	return nil
 }
 
 func copyFullExtension(baseDir string, tempDir string, extensionDir []string) error {
@@ -52,8 +90,6 @@ func copyFullExtension(baseDir string, tempDir string, extensionDir []string) er
 			os.MkdirAll(path.Join(tempDir, extensionDirPath, name), 0777)
 			copyFullExtension(baseDir, tempDir, append(extensionDir, name))
 		} else {
-			fmt.Println("from:", path.Join(fullExtensionDirPath, name))
-			fmt.Println("to:", path.Join(tempDir, extensionDirPath, name))
 			// copy a file over
 			from, err := os.Open(path.Join(fullExtensionDirPath, name))
 			if err != nil {
@@ -74,12 +110,12 @@ func copyFullExtension(baseDir string, tempDir string, extensionDir []string) er
 	return nil
 }
 
-func selectExtensionToUse(exts []chromeExtension) (int64, chromeExtension) {
+func selectExtensionToUse(exts []chromeExtension, fullExts []extensionManifest) (int64, chromeExtension, extensionManifest) {
 	printExtensions(exts)
 	fmt.Println("------------------------------")
 	fmt.Println("Type the id you want to spy on")
 	i := askForNum(int64(len(exts) - 1))
-	return i, exts[i]
+	return i, exts[i], fullExts[i]
 }
 
 func askForNum(max int64) int64 {
@@ -147,11 +183,12 @@ type chromeExtension struct {
 	homepageURL string // homepage url
 }
 
-func getExtensions(extensionsPath string) []chromeExtension {
+func getExtensions(extensionsPath string) ([]chromeExtension, []extensionManifest) {
 	toReturn := []chromeExtension{}
+	toReturnFull := []extensionManifest{}
 	files, err := ioutil.ReadDir(extensionsPath)
 	if err != nil {
-		return toReturn
+		return toReturn, toReturnFull
 	}
 	for _, f := range files {
 		fName := f.Name()
@@ -159,7 +196,7 @@ func getExtensions(extensionsPath string) []chromeExtension {
 			extensionPath := path.Join(extensionsPath, fName)
 			files, err := ioutil.ReadDir(extensionPath)
 			if err != nil {
-				return toReturn
+				return toReturn, toReturnFull
 			}
 			version := ""
 			for _, versionDir := range files {
@@ -177,10 +214,11 @@ func getExtensions(extensionsPath string) []chromeExtension {
 				addToReturnValue.shortName = manifest.ShortName
 				addToReturnValue.fullPkgURL = path.Join(extensionPath, version, "/")
 				toReturn = append(toReturn, addToReturnValue)
+				toReturnFull = append(toReturnFull, manifest)
 			}
 		}
 	}
-	return toReturn
+	return toReturn, toReturnFull
 }
 
 func chromeLoc(version string) string {
