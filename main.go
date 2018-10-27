@@ -56,11 +56,11 @@ func printErr(err error) {
 
 func proxyHandeler(c *gin.Context) {
 	rawURL := c.Param("url")
-	parsedUrl, err := url.PathUnescape(rawURL)
+	parsedURL, err := url.PathUnescape(rawURL)
 	if err != nil {
 		c.String(http.StatusConflict, "")
 	}
-	c.String(http.StatusOK, parsedUrl)
+	c.String(http.StatusOK, parsedURL)
 }
 
 func startWebServer() error {
