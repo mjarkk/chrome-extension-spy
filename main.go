@@ -54,13 +54,47 @@ func printErr(err error) {
 	}
 }
 
-func proxyHandeler(c *gin.Context) {
+func proxyHandeler(c *gin.Context, reqType string) {
 	rawURL := c.Param("url")
 	parsedURL, err := url.PathUnescape(rawURL)
 	if err != nil {
 		c.String(http.StatusConflict, "")
 	}
-	c.String(http.StatusOK, parsedURL)
+
+	hc := http.Client{}
+	req, err := http.NewRequest(reqType, parsedURL, nil)
+
+	if reqType == "POST" {
+		rawData, err := ioutil.ReadAll(c.Request.Body)
+		if err == nil {
+			fmt.Println(string(rawData))
+		}
+	}
+
+	for key, value := range c.Request.Header {
+		req.Header.Add(key, value[0])
+	}
+
+	rs, err := hc.Do(req)
+	if err != nil {
+		c.String(400, "")
+		return
+	}
+
+	returnHeaders := map[string]string{}
+	for key, item := range rs.Header {
+		returnHeaders[key] = item[0]
+	}
+
+	c.DataFromReader(rs.StatusCode, rs.ContentLength, rs.Header.Get("Content-Type"), rs.Body, returnHeaders)
+}
+
+func proxyHandelerPost(c *gin.Context) {
+	proxyHandeler(c, "POST")
+}
+
+func proxyHandelerGet(c *gin.Context) {
+	proxyHandeler(c, "POST")
 }
 
 func startWebServer() error {
@@ -69,8 +103,8 @@ func startWebServer() error {
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	r.Use(cors.New(config))
-	r.GET("/proxy/:url", proxyHandeler)
-	r.POST("/proxy/:url", proxyHandeler)
+	r.GET("/proxy/:url", proxyHandelerGet)
+	r.POST("/proxy/:url", proxyHandelerPost)
 	r.Run()
 	return nil
 }
