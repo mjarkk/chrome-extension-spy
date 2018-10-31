@@ -1,15 +1,13 @@
 const CHROME_EXT_SPY_BAK_FETCH = window.fetch
-const CHROME_EXT_SPY_REPLACE_URI = uri => 
-  (
-    location 
-    && location.origin 
-    && location.pathname 
-    && !/^((http(s)?:\/\/)?(?!(\w|\d)*(\/|\\|\?|\!|\@|\#|\$|\%|\^|\&|\*|\(|\))(\w|\d)*).*\..{2,15})/.test(uri)
-  )
-    ? `http://localhost:8080/proxy/${encodeURIComponent(encodeURIComponent(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri))}`
-    : /chrome\-extension/.test(location.href)
-      ? uri
-      : `http://localhost:8080/proxy/${encodeURIComponent(encodeURIComponent(uri))}`
+const CHROME_EXT_SPY_REPLACE_URI = uri => {
+  const dubbleEncode = input => encodeURIComponent(encodeURIComponent(input))
+  const toReturn = /\/\/chrome\-extension/.test(uri)
+    ? uri
+    : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${uri}`)
+      ? `http://localhost:8080/proxy/${dubbleEncode(uri)}`
+      : `http://localhost:8080/proxy/${dubbleEncode(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri)}`
+  return toReturn
+}
 
 window.fetch = (uri, options) => {
   return new Promise((resolve, reject) => {
@@ -58,11 +56,3 @@ window.fetch = (uri, options) => {
     origOpen.apply(this, arguments);
   };
 })();
-
-// const req = new XMLHttpRequest()
-// req.open('GET', '/test')
-// req.send()
-
-fetch('https://api.ipify.org/?format=json', {method: "POST"})
-  .then(r => r.text())
-  .then(console.log)
