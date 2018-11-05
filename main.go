@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -68,7 +67,6 @@ func printErr(err error) {
 func proxyHandeler(c *gin.Context, reqType string) {
 	rawURL := c.Param("url")
 	parsedURL, err := url.PathUnescape(rawURL)
-	log.Println(reqType + ", to: " + parsedURL)
 	if err != nil {
 		c.String(http.StatusConflict, "")
 	}
@@ -76,16 +74,13 @@ func proxyHandeler(c *gin.Context, reqType string) {
 	hc := http.Client{}
 	req, err := http.NewRequest(reqType, parsedURL, nil)
 
-	// if reqType == "POST" {
-	// 	rawData, err := ioutil.ReadAll(c.Request.Body)
-	// 	if err == nil {
-	// 		fmt.Println(string(rawData))
-	// 	}
-	// }
+	if reqType == "POST" {
+		req.Body = c.Request.Body
+	}
 
-	// for key, value := range c.Request.Header {
-	// 	req.Header.Add(key, value[0])
-	// }
+	for key, value := range c.Request.Header {
+		req.Header.Add(key, value[0])
+	}
 
 	rs, err := hc.Do(req)
 	if err != nil {
@@ -103,7 +98,6 @@ func proxyHandeler(c *gin.Context, reqType string) {
 	}
 
 	c.Data(rs.StatusCode, rs.Header.Get("Content-Type"), body)
-	// c.String(200, string(body))
 }
 
 func proxyHandelerPost(c *gin.Context) {
@@ -114,19 +108,15 @@ func proxyHandelerGet(c *gin.Context) {
 	proxyHandeler(c, "GET")
 }
 
-func testRoute(c *gin.Context) {
-	c.String(200, "some string")
-}
-
 func startWebServer() error {
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode("release")
 	r := gin.Default()
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	r.Use(cors.New(config))
 	r.GET("/proxy/:url", proxyHandelerGet)
 	r.POST("/proxy/:url", proxyHandelerPost)
-	r.POST("/test/", testRoute)
+	r.Static("/web_static", "./web_static")
 	r.Run()
 	return nil
 }
