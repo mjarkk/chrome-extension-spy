@@ -13,6 +13,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -32,8 +33,45 @@ func main() {
 	printErr(err)
 	err = editExtension(tempDir, ext, fullExt)
 	printErr(err)
-	err = startWebServer()
-	printErr(err)
+
+	var waitForGinAndChrome sync.WaitGroup
+	waitForGinAndChrome.Add(2)
+
+	var waitForExit sync.WaitGroup
+	waitForExit.Add(1)
+
+	var ginErr error
+	go func() {
+		ginErr = startWebServer(&waitForExit)
+		waitForGinAndChrome.Done()
+	}()
+	var chromeErr error
+	go func() {
+		chromeErr = launchChrome(tempDir)
+		waitForGinAndChrome.Done()
+	}()
+	go func() {
+		waitForExitInput()
+		waitForExit.Done()
+	}()
+
+	waitForGinAndChrome.Wait()
+	printErr(chromeErr)
+	printErr(ginErr)
+
+}
+
+func waitForExitInput() {
+	var input string
+	fmt.Print("Type exit to exit the program")
+	fmt.Scanf("%s", &input)
+	if input != "exit" {
+		waitForExitInput()
+	}
+}
+
+func launchChrome(extPath string) error {
+	return nil
 }
 
 func editExtension(tmpDir string, ext chromeExtension, fullExt extensionManifest) error {
@@ -108,16 +146,27 @@ func proxyHandelerGet(c *gin.Context) {
 	proxyHandeler(c, "GET")
 }
 
-func startWebServer() error {
-	gin.SetMode("release")
-	r := gin.Default()
-	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
-	r.Use(cors.New(config))
-	r.GET("/proxy/:url", proxyHandelerGet)
-	r.POST("/proxy/:url", proxyHandelerPost)
-	r.Static("/web_static", "./web_static")
-	r.Run()
+func startWebServer(closeServer *sync.WaitGroup) error {
+	var waitForBoth sync.WaitGroup
+	waitForBoth.Add(2)
+	var r *gin.Engine
+	go func() {
+		gin.SetMode("release")
+		r = gin.Default()
+		config := cors.DefaultConfig()
+		config.AllowAllOrigins = true
+		r.Use(cors.New(config))
+		r.GET("/proxy/:url", proxyHandelerGet)
+		r.POST("/proxy/:url", proxyHandelerPost)
+		r.Static("/web_static", "./web_static")
+		r.Run()
+		waitForBoth.Done()
+	}()
+	go func() {
+		closeServer.Wait()
+		// shutdown the server here
+		waitForBoth.Done()
+	}()
 	return nil
 }
 
