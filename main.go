@@ -37,12 +37,11 @@ func main() {
 	var waitForGinAndChrome sync.WaitGroup
 	waitForGinAndChrome.Add(2)
 
-	var waitForExit sync.WaitGroup
-	waitForExit.Add(1)
+	var waitForExit = make(chan struct{})
 
 	var ginErr error
 	go func() {
-		ginErr = startWebServer(&waitForExit)
+		ginErr = startWebServer(waitForExit)
 		waitForGinAndChrome.Done()
 	}()
 	var chromeErr error
@@ -52,7 +51,7 @@ func main() {
 	}()
 	go func() {
 		waitForExitInput()
-		waitForExit.Done()
+		waitForExit <- struct{}{}
 	}()
 
 	waitForGinAndChrome.Wait()
@@ -146,7 +145,7 @@ func proxyHandelerGet(c *gin.Context) {
 	proxyHandeler(c, "GET")
 }
 
-func startWebServer(closeServer *sync.WaitGroup) error {
+func startWebServer(closeServer chan struct{}) error {
 	var waitForBoth sync.WaitGroup
 	waitForBoth.Add(2)
 	var r *gin.Engine
@@ -163,7 +162,7 @@ func startWebServer(closeServer *sync.WaitGroup) error {
 		waitForBoth.Done()
 	}()
 	go func() {
-		closeServer.Wait()
+		<-closeServer
 		// shutdown the server here
 		waitForBoth.Done()
 	}()
@@ -337,6 +336,9 @@ func getChromeLocation() (string, error) {
 	}
 	if _, err := os.Stat(chromeLoc("google-chrome-dev")); !os.IsNotExist(err) {
 		return "google-chrome-dev", nil
+	}
+	if _, err := os.Stat(chromeLoc("google-chrome-unstable")); !os.IsNotExist(err) {
+		return "google-chrome-unstable", nil
 	}
 	if _, err := os.Stat(chromeLoc("google-chrome-canary")); !os.IsNotExist(err) {
 		return "google-chrome-canary", nil
