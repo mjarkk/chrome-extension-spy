@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"os/user"
 	"path"
 	"strconv"
@@ -46,7 +47,7 @@ func main() {
 	}()
 	var chromeErr error
 	go func() {
-		chromeErr = launchChrome(tempDir)
+		chromeErr = launchChrome(tempDir, waitForExit)
 		waitForGinAndChrome.Done()
 	}()
 	go func() {
@@ -69,7 +70,43 @@ func waitForExitInput() {
 	}
 }
 
-func launchChrome(extPath string) error {
+func launchChrome(extPath string, closeChrome chan struct{}) error {
+	tempDir, err := ioutil.TempDir("", "chrome-data")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(tempDir)
+	var cmd *exec.Cmd
+	go func() {
+		<-closeChrome
+		cmd.Process.Kill()
+	}()
+	cmd = exec.Command(
+		"google-chrome-unstable",
+		"--user-data-dir="+tempDir,
+		"--disable-background-networking",
+		"--disable-background-timer-throttling",
+		"--disable-backgrounding-occluded-windows",
+		"--disable-breakpad",
+		"--disable-client-side-phishing-detection",
+		"--disable-default-apps",
+		"--disable-dev-shm-usage",
+		"--disable-extensions",
+		"--disable-features=site-per-process",
+		"--disable-hang-monitor",
+		"--disable-ipc-flooding-protection",
+		"--disable-popup-blocking",
+		"--disable-prompt-on-repost",
+		"--disable-renderer-backgrounding",
+		"--disable-sync",
+		"--disable-translate",
+		"--metrics-recording-only",
+		"--no-first-run",
+		"--safebrowsing-disable-auto-update",
+		"--enable-automation",
+		"--password-store=basic",
+		"--use-mock-keychain",
+	)
 	return nil
 }
 
