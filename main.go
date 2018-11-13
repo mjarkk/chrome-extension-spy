@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -15,6 +17,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -58,7 +61,6 @@ func main() {
 	waitForGinAndChrome.Wait()
 	printErr(chromeErr)
 	printErr(ginErr)
-
 }
 
 func waitForExitInput() {
@@ -79,6 +81,7 @@ func launchChrome(extPath string, closeChrome chan struct{}) error {
 	var cmd *exec.Cmd
 	go func() {
 		<-closeChrome
+		fmt.Println("killing chrome process")
 		cmd.Process.Kill()
 	}()
 	cmd = exec.Command(
@@ -107,7 +110,8 @@ func launchChrome(extPath string, closeChrome chan struct{}) error {
 		"--password-store=basic",
 		"--use-mock-keychain",
 	)
-	return nil
+	_, err = cmd.Output()
+	return err
 }
 
 func editExtension(tmpDir string, ext chromeExtension, fullExt extensionManifest) error {
@@ -183,26 +187,30 @@ func proxyHandelerGet(c *gin.Context) {
 }
 
 func startWebServer(closeServer chan struct{}) error {
-	var waitForBoth sync.WaitGroup
-	waitForBoth.Add(2)
-	var r *gin.Engine
+	gin.SetMode("release")
+	r := gin.Default()
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	r.Use(cors.New(config))
+	r.GET("/proxy/:url", proxyHandelerGet)
+	r.POST("/proxy/:url", proxyHandelerPost)
+	r.Static("/web_static", "./web_static")
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: r,
+	}
 	go func() {
-		gin.SetMode("release")
-		r = gin.Default()
-		config := cors.DefaultConfig()
-		config.AllowAllOrigins = true
-		r.Use(cors.New(config))
-		r.GET("/proxy/:url", proxyHandelerGet)
-		r.POST("/proxy/:url", proxyHandelerPost)
-		r.Static("/web_static", "./web_static")
-		r.Run()
-		waitForBoth.Done()
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
 	}()
-	go func() {
-		<-closeServer
-		// shutdown the server here
-		waitForBoth.Done()
-	}()
+	<-closeServer
+	fmt.Println("Stopping server")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal("Server Shutdown:", err)
+	}
 	return nil
 }
 
