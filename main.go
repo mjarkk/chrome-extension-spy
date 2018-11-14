@@ -1,30 +1,29 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"strconv"
-	"strings"
 	"sync"
 
 	"github.com/mjarkk/chrome-extension-spy/chrome"
+	"github.com/mjarkk/chrome-extension-spy/fs"
+	"github.com/mjarkk/chrome-extension-spy/types"
 )
 
 func main() {
 	output, err := chrome.GetLocation()
 	printErr(err)
 	fullpath := chrome.Location(output)
-	extensions, fullExtension := getExtensions(fullpath)
+	extensions, fullExtension := chrome.GetExtensions(fullpath)
 	_, ext, fullExt := selectExtensionToUse(extensions, fullExtension)
 	// create a temp dir to store the extension
 	tempDir, err := ioutil.TempDir("", "chrome-extension-spy")
 	defer os.RemoveAll(tempDir)
 	printErr(err)
-	err = copyFullExtension(ext.fullPkgURL, tempDir, []string{})
+	err = fs.CopyFullExtension(ext.FullPkgURL, tempDir, []string{})
 	printErr(err)
 	err = editExtension(tempDir, ext, fullExt)
 	printErr(err)
@@ -63,7 +62,7 @@ func waitForExitInput() {
 	}
 }
 
-func editExtension(tmpDir string, ext chromeExtension, fullExt extensionManifest) error {
+func editExtension(tmpDir string, ext types.ChromeExtension, fullExt types.ExtensionManifest) error {
 	thisFileDir, err := os.Executable()
 	if err != nil {
 		return err
@@ -91,42 +90,7 @@ func printErr(err error) {
 	}
 }
 
-func copyFullExtension(baseDir string, tempDir string, extensionDir []string) error {
-	extensionDirPath := strings.Join(extensionDir, "/")
-	fullExtensionDirPath := path.Join(baseDir, extensionDirPath)
-	files, err := ioutil.ReadDir(fullExtensionDirPath)
-	if err != nil {
-		return err
-	}
-	for _, file := range files {
-		name := file.Name()
-
-		if file.IsDir() {
-			// create a dir and loop over that dir
-			os.MkdirAll(path.Join(tempDir, extensionDirPath, name), 0777)
-			copyFullExtension(baseDir, tempDir, append(extensionDir, name))
-		} else {
-			// copy a file over
-			from, err := os.Open(path.Join(fullExtensionDirPath, name))
-			if err != nil {
-				return err
-			}
-			to, err := os.Create(path.Join(tempDir, extensionDirPath, name))
-			if err != nil {
-				return err
-			}
-			_, err = io.Copy(to, from)
-			if err != nil {
-				return err
-			}
-			from.Close()
-			to.Close()
-		}
-	}
-	return nil
-}
-
-func selectExtensionToUse(exts []chromeExtension, fullExts []extensionManifest) (int64, chromeExtension, extensionManifest) {
+func selectExtensionToUse(exts []types.ChromeExtension, fullExts []types.ExtensionManifest) (int64, types.ChromeExtension, types.ExtensionManifest) {
 	printExtensions(exts)
 	fmt.Println("------------------------------")
 	fmt.Println("Type the id you want to spy on")
@@ -146,90 +110,46 @@ func askForNum(max int64) int64 {
 	return i
 }
 
-func printExtensions(exts []chromeExtension) {
+func printExtensions(exts []types.ChromeExtension) {
 	maxNameLen := 0
 	maxShortNameLen := 0
 	maxPkgVersionLen := 7
 	for _, ext := range exts {
-		if len(ext.name) > maxNameLen {
-			maxNameLen = len(ext.name)
+		if len(ext.Name) > maxNameLen {
+			maxNameLen = len(ext.Name)
 		}
-		if len(ext.shortName) > maxShortNameLen {
-			maxShortNameLen = len(ext.name)
+		if len(ext.ShortName) > maxShortNameLen {
+			maxShortNameLen = len(ext.ShortName)
 		}
-		if len(ext.pkgVersion) > maxPkgVersionLen {
-			maxPkgVersionLen = len(ext.pkgVersion)
+		if len(ext.PkgVersion) > maxPkgVersionLen {
+			maxPkgVersionLen = len(ext.PkgVersion)
 		}
 	}
-	fmt.Printf("%s\t%s%s%s%s\n", "id", rightPad("name", " ", maxNameLen+1), rightPad("short name", " ", maxShortNameLen+1), rightPad("version", " ", maxPkgVersionLen+1), "homepage")
+	fmt.Printf("%s\t%s%s%s%s\n", "id", funs.RightPad("name", " ", maxNameLen+1), funs.RightPad("short name", " ", maxShortNameLen+1), funs.RightPad("version", " ", maxPkgVersionLen+1), "homepage")
 	for id, ext := range exts {
-		name := ext.name
+		name := ext.Name
 		if len(name) == 0 {
 			name = "-"
 		}
-		shortName := ext.shortName
+		shortName := ext.ShortName
 		if len(shortName) == 0 {
 			shortName = "-"
 		}
-		homepageURL := ext.homepageURL
+		homepageURL := ext.HomepageURL
 		if len(homepageURL) == 0 {
 			homepageURL = "-"
 		}
-		pkgVersion := ext.pkgVersion
+		pkgVersion := ext.PkgVersion
 		if len(pkgVersion) == 0 {
 			pkgVersion = "-"
 		}
 		fmt.Printf(
 			"%v\t%s%s%s%s\n",
 			id,
-			rightPad(name, " ", maxNameLen+1),
-			rightPad(shortName, " ", maxShortNameLen+1),
-			rightPad(pkgVersion, " ", maxPkgVersionLen+1),
+			funs.RightPad(name, " ", maxNameLen+1),
+			funs.RightPad(shortName, " ", maxShortNameLen+1),
+			funs.RightPad(pkgVersion, " ", maxPkgVersionLen+1),
 			homepageURL,
 		)
 	}
-}
-
-func getExtensions(extensionsPath string) ([]chromeExtension, []extensionManifest) {
-	toReturn := []chromeExtension{}
-	toReturnFull := []extensionManifest{}
-	files, err := ioutil.ReadDir(extensionsPath)
-	if err != nil {
-		return toReturn, toReturnFull
-	}
-	for _, f := range files {
-		fName := f.Name()
-		if len(fName) == 32 {
-			extensionPath := path.Join(extensionsPath, fName)
-			files, err := ioutil.ReadDir(extensionPath)
-			if err != nil {
-				return toReturn, toReturnFull
-			}
-			version := ""
-			for _, versionDir := range files {
-				version = versionDir.Name()
-			}
-			dat, err := ioutil.ReadFile(path.Join(extensionPath, version, "/manifest.json"))
-			if err == nil {
-				var manifest extensionManifest
-				var addToReturnValue chromeExtension
-				json.Unmarshal(dat, &manifest)
-				addToReturnValue.name = manifest.Name
-				addToReturnValue.homepageURL = manifest.HomepageURL
-				addToReturnValue.pkg = fName
-				addToReturnValue.pkgVersion = version
-				addToReturnValue.shortName = manifest.ShortName
-				addToReturnValue.fullPkgURL = path.Join(extensionPath, version, "/")
-				toReturn = append(toReturn, addToReturnValue)
-				toReturnFull = append(toReturnFull, manifest)
-			}
-		}
-	}
-	return toReturn, toReturnFull
-}
-
-func rightPad(s string, padStr string, overallLen int) string {
-	var padCountInt = 1 + ((overallLen - len(padStr)) / len(padStr))
-	var retStr = s + strings.Repeat(padStr, padCountInt)
-	return retStr[:overallLen]
 }

@@ -1,17 +1,17 @@
-package main
+package types
 
-// chromeExtension is a small version of extensionManifest with just the right amound of data
-type chromeExtension struct {
-	pkg         string // the chrome extension folder name
-	pkgVersion  string // the package version
-	fullPkgURL  string // full url to extension
-	name        string // extension name
-	shortName   string // extension longname
-	homepageURL string // homepage url
+// ChromeExtension is a small version of extensionManifest with just the right amound of data
+type ChromeExtension struct {
+	Pkg         string // the chrome extension folder name
+	PkgVersion  string // the package version
+	FullPkgURL  string // full url to extension
+	Name        string // extension name
+	ShortName   string // extension longname
+	HomepageURL string // homepage url
 }
 
-// extensionManifest fully covers most manifest.json files from extensions
-type extensionManifest struct {
+// ExtensionManifest fully covers most manifest.json files from extensions
+type ExtensionManifest struct {
 	Applications struct {
 		Gecko struct {
 			ID               string `json:"id"`
