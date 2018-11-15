@@ -8,7 +8,8 @@ import (
 )
 
 // Launch launches chrome without any user provile
-func Launch(extPath string, closeChrome chan struct{}) error {
+// TODO: Fix the long time before command exits after closing google chrome
+func Launch(extPath string, launchCommand string, forceClose chan struct{}) error {
 	tempDir, err := ioutil.TempDir("", "chrome-data")
 	if err != nil {
 		return err
@@ -16,12 +17,12 @@ func Launch(extPath string, closeChrome chan struct{}) error {
 	defer os.RemoveAll(tempDir)
 	var cmd *exec.Cmd
 	go func() {
-		<-closeChrome
+		<-forceClose
 		fmt.Println("killing chrome process")
 		cmd.Process.Kill()
 	}()
 	cmd = exec.Command(
-		"google-chrome-unstable",
+		launchCommand,
 		"--user-data-dir="+tempDir,
 		"--disable-background-networking",
 		"--disable-background-timer-throttling",

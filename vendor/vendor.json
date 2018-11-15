@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "BxH9xJUqczhpL57gfKZe2/VlBHY=",
+			"path": "github.com/fatih/color",
+			"revision": "3f9d52f7176a6927daacff70a3e8d1dc2025c53e",
+			"revisionTime": "2018-10-10T23:13:11Z"
+		},
+		{
 			"checksumSHA1": "yNw7LsCcmU4KA4lRdEWEfxnP9pM=",
 			"path": "github.com/gin-contrib/cors",
 			"revision": "488de3ec974f4e37bb0eb426cdee1aa897726300",
@@ -57,6 +63,12 @@
 			"path": "github.com/json-iterator/go",
 			"revision": "05d041de1043ba04b678fb046bd35455a9b1b33b",
 			"revisionTime": "2018-10-24T15:28:41Z"
+		},
+		{
+			"checksumSHA1": "SEnjvwVyfuU2xBaOfXfwPD5MZqk=",
+			"path": "github.com/mattn/go-colorable",
+			"revision": "efa589957cd060542a26d2dd7832fd6a6c6c3ade",
+			"revisionTime": "2018-03-10T13:32:14Z"
 		},
 		{
 			"checksumSHA1": "GiVgQkx5acnq+JZtYiuHPlhHoso=",

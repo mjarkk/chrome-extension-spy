@@ -5,13 +5,12 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 )
 
-// CopyFullExtension copys a exteion folder over to another direcotry
-func CopyFullExtension(baseDir string, tempDir string, extensionDir []string) error {
-	extensionDirPath := strings.Join(extensionDir, "/")
-	fullExtensionDirPath := path.Join(baseDir, extensionDirPath)
+// CopyDir copys a full dir over to another direcotry
+func CopyDir(from string, to string, extensionDir []string) error {
+	extensionDirPath := path.Join(extensionDir...)
+	fullExtensionDirPath := path.Join(from, extensionDirPath)
 	files, err := ioutil.ReadDir(fullExtensionDirPath)
 	if err != nil {
 		return err
@@ -21,15 +20,15 @@ func CopyFullExtension(baseDir string, tempDir string, extensionDir []string) er
 
 		if file.IsDir() {
 			// create a dir and loop over that dir
-			os.MkdirAll(path.Join(tempDir, extensionDirPath, name), 0777)
-			CopyFullExtension(baseDir, tempDir, append(extensionDir, name))
+			os.MkdirAll(path.Join(to, extensionDirPath, name), 0777)
+			CopyDir(from, to, append(extensionDir, name))
 		} else {
 			// copy a file over
 			from, err := os.Open(path.Join(fullExtensionDirPath, name))
 			if err != nil {
 				return err
 			}
-			to, err := os.Create(path.Join(tempDir, extensionDirPath, name))
+			to, err := os.Create(path.Join(to, extensionDirPath, name))
 			if err != nil {
 				return err
 			}
