@@ -1,2 +1,3 @@
 # chrome-extension-spy
-Spy on chrome extensions
+Spy on chrome extensions  
+*work in progress!!*
