@@ -21,7 +21,13 @@ func Setup(extTmpDir chan string) (string, error) {
 	if err != nil {
 		return chromeCommand, err
 	}
+
 	extTmpDir <- tempDir
+
+	err = os.Chmod(tempDir, 0777)
+	if err != nil {
+		return "", err
+	}
 
 	extensions, fullExtensions := GetExtensions(chromeLocation)
 	for id, fullExtension := range fullExtensions {

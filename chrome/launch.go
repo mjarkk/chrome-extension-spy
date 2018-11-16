@@ -5,11 +5,13 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"path"
+	"strings"
 )
 
 // Launch launches chrome without any user provile
 // TODO: Fix the long time before command exits after closing google chrome
-func Launch(extPath string, launchCommand string, forceClose chan struct{}) error {
+func Launch(extsPath string, launchCommand string, forceClose chan struct{}) error {
 	tempDir, err := ioutil.TempDir("", "chrome-data")
 	if err != nil {
 		return err
@@ -21,6 +23,15 @@ func Launch(extPath string, launchCommand string, forceClose chan struct{}) erro
 		fmt.Println("killing chrome process")
 		cmd.Process.Kill()
 	}()
+	files, err := ioutil.ReadDir(extsPath)
+	if err != nil {
+		return err
+	}
+	dirs := []string{}
+	for _, folderItem := range files {
+		dirs = append(dirs, path.Join(extsPath, folderItem.Name()))
+	}
+	allExts := strings.Join(dirs, ",")
 	cmd = exec.Command(
 		launchCommand,
 		"--user-data-dir="+tempDir,
@@ -31,7 +42,6 @@ func Launch(extPath string, launchCommand string, forceClose chan struct{}) erro
 		"--disable-client-side-phishing-detection",
 		"--disable-default-apps",
 		"--disable-dev-shm-usage",
-		"--disable-extensions",
 		"--disable-features=site-per-process",
 		"--disable-hang-monitor",
 		"--disable-ipc-flooding-protection",
@@ -46,6 +56,7 @@ func Launch(extPath string, launchCommand string, forceClose chan struct{}) erro
 		"--enable-automation",
 		"--password-store=basic",
 		"--use-mock-keychain",
+		"--load-extension=\""+allExts+"\"",
 	)
 	_, err = cmd.Output()
 	return err

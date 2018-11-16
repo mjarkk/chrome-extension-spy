@@ -25,7 +25,7 @@ func EditExtension(tmpDir string, ext types.ChromeExtension, fullExt types.Exten
 			return err
 		}
 		toWrite := string(injectable) + string(file)
-		ioutil.WriteFile(fullFileDir, []byte(toWrite), 0666)
+		ioutil.WriteFile(fullFileDir, []byte(toWrite), 0777)
 	}
 	return nil
 }
