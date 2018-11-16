@@ -20,7 +20,7 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 	var cmd *exec.Cmd
 	go func() {
 		<-forceClose
-		fmt.Println("killing chrome process")
+		fmt.Println("Trying to stop chrome process")
 		cmd.Process.Kill()
 	}()
 	files, err := ioutil.ReadDir(extsPath)
@@ -57,6 +57,7 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 		"--password-store=basic",
 		"--use-mock-keychain",
 		"--load-extension=\""+allExts+"\"",
+		"http://localhost:8080/", // Open chrome with this url
 	)
 	_, err = cmd.Output()
 	return err

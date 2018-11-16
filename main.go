@@ -2,12 +2,20 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"sync"
 
 	"github.com/mjarkk/chrome-extension-spy/chrome"
 	"github.com/mjarkk/chrome-extension-spy/funs"
+	"github.com/mjarkk/chrome-extension-spy/webserver"
 )
 
 func main() {
+	err := run()
+	funs.PrintErr(err)
+}
+
+func run() error {
 	var extTmpDir = make(chan string)
 	var startWebServer = make(chan struct{})
 	var chromeCommand = ""
@@ -20,42 +28,42 @@ func main() {
 	}()
 	tempDir := <-extTmpDir
 	fmt.Println(tempDir)
-	// defer os.RemoveAll(tempDir)
+	defer os.RemoveAll(tempDir)
 
 	// Wait for chrome to complete it's tasks
 	<-startWebServer
 
+	var tasks sync.WaitGroup
+	tasks.Add(2)
+
+	var webserverErr error
+	var chromeErr error
+
 	forceClose := make(chan struct{})
 	go func() {
-		chrome.Launch(tempDir, chromeCommand, forceClose)
+		chromeErr = chrome.Launch(tempDir, chromeCommand, forceClose)
+		forceClose <- struct{}{}
+		tasks.Done()
+	}()
+	go func() {
+		webserverErr = webserver.StartWebServer(forceClose)
+		forceClose <- struct{}{}
+		tasks.Done()
+	}()
+	go func() {
+		waitForExitInput()
 		forceClose <- struct{}{}
 	}()
 
-	<-forceClose
+	tasks.Wait()
 
-	// var waitForGinAndChrome sync.WaitGroup
-	// waitForGinAndChrome.Add(2)
-
-	// var waitForExit = make(chan struct{})
-
-	// var ginErr error
-	// go func() {
-	// 	ginErr = startWebServer(waitForExit)
-	// 	waitForGinAndChrome.Done()
-	// }()
-	// var chromeErr error
-	// go func() {
-	// 	chromeErr = chrome.Launch(tempDir, waitForExit)
-	// 	waitForGinAndChrome.Done()
-	// }()
-	// go func() {
-	// 	waitForExitInput()
-	// 	waitForExit <- struct{}{}
-	// }()
-
-	// waitForGinAndChrome.Wait()
-	// funs.PrintErr(chromeErr)
-	// funs.PrintErr(ginErr)
+	if webserverErr != nil {
+		return webserverErr
+	}
+	if chromeErr != nil {
+		return chromeErr
+	}
+	return nil
 }
 
 func waitForExitInput() {

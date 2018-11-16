@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chrome extension spy</title>
+  <% htmlWebpackPlugin.files.js.forEach(jsFile => { %>
+    <link rel="preload" href="<%= jsFile %>" as="script"> <!-- preload the scripts -->
+  <% }) %>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+</head>
+<body>
+  <%if (!htmlWebpackPlugin.options.production) { %>
+    <script src="http://localhost:35729/livereload.js"></script>
+  <% } %>
+</body>
+</html>

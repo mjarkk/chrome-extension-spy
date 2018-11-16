@@ -1,3 +1,14 @@
+# web_static files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+node_modules/
+.npm
+.yarn-integrity
+build/
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

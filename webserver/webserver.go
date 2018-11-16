@@ -1,4 +1,4 @@
-package main
+package webserver
 
 import (
 	"context"
@@ -15,6 +15,7 @@ import (
 
 func proxyHandeler(c *gin.Context, reqType string) {
 	rawURL := c.Param("url")
+	// appId := c.Param("appid")
 	parsedURL, err := url.PathUnescape(rawURL)
 	if err != nil {
 		c.String(http.StatusConflict, "")
@@ -57,15 +58,17 @@ func proxyHandelerGet(c *gin.Context) {
 	proxyHandeler(c, "GET")
 }
 
-func startWebServer(closeServer chan struct{}) error {
+// StartWebServer starts the web serve
+func StartWebServer(forceClose chan struct{}) error {
 	gin.SetMode("release")
 	r := gin.Default()
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	r.Use(cors.New(config))
-	r.GET("/proxy/:url", proxyHandelerGet)
-	r.POST("/proxy/:url", proxyHandelerPost)
-	r.Static("/web_static", "./web_static")
+	r.GET("/proxy/:appid/:url", proxyHandelerGet)
+	r.POST("/proxy/:appid/:url", proxyHandelerPost)
+	r.Static("/js/", "./web_static/build/js/")
+	r.StaticFile("/", "./web_static/build/index.html")
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
@@ -75,12 +78,12 @@ func startWebServer(closeServer chan struct{}) error {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
-	<-closeServer
-	fmt.Println("Stopping server")
+	<-forceClose
+	fmt.Println("Trying to stop web server")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server Shutdown:", err)
+		fmt.Println("Unable to shutdown the server run CTRL+C to force quit")
 	}
 	return nil
 }

@@ -4,12 +4,13 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/mjarkk/chrome-extension-spy/types"
 )
 
 // EditExtension injects the spy code into a extension
-func EditExtension(tmpDir string, ext types.ChromeExtension, fullExt types.ExtensionManifest) error {
+func EditExtension(extDir string, ext types.ChromeExtension, fullExt types.ExtensionManifest) error {
 	thisFileDir, err := os.Executable()
 	if err != nil {
 		return err
@@ -19,12 +20,12 @@ func EditExtension(tmpDir string, ext types.ChromeExtension, fullExt types.Exten
 		return err
 	}
 	for _, srcItem := range fullExt.Background.Scripts {
-		fullFileDir := path.Join(tmpDir, srcItem)
+		fullFileDir := path.Join(extDir, srcItem)
 		file, err := ioutil.ReadFile(fullFileDir)
 		if err != nil {
 			return err
 		}
-		toWrite := string(injectable) + string(file)
+		toWrite := strings.Replace(string(injectable), "--EXT-APP-ID--", ext.Pkg, 1) + string(file)
 		ioutil.WriteFile(fullFileDir, []byte(toWrite), 0777)
 	}
 	return nil
