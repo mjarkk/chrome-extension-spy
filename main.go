@@ -7,6 +7,7 @@ import (
 
 	"github.com/mjarkk/chrome-extension-spy/chrome"
 	"github.com/mjarkk/chrome-extension-spy/funs"
+	"github.com/mjarkk/chrome-extension-spy/types"
 	"github.com/mjarkk/chrome-extension-spy/webserver"
 )
 
@@ -19,9 +20,10 @@ func run() error {
 	var extTmpDir = make(chan string)
 	var startWebServer = make(chan struct{})
 	var chromeCommand = ""
-
+	var extensions map[string]*types.FullAndSmallExt
 	go func() {
-		chromeLaunchCommand, err := chrome.Setup(extTmpDir)
+		exts, chromeLaunchCommand, err := chrome.Setup(extTmpDir)
+		extensions = exts
 		chromeCommand = chromeLaunchCommand
 		funs.PrintErr(err)
 		startWebServer <- struct{}{}
@@ -46,7 +48,7 @@ func run() error {
 		tasks.Done()
 	}()
 	go func() {
-		webserverErr = webserver.StartWebServer(forceClose)
+		webserverErr = webserver.StartWebServer(forceClose, extensions)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()

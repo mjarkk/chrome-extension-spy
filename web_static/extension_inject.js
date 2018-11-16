@@ -1,11 +1,13 @@
+// TODO make this sand boxed because this is ran global
+const CHROME_EXT_SPY_EXT_ID = '--EXT-APP-ID--'
 const CHROME_EXT_SPY_BAK_FETCH = window.fetch
 const CHROME_EXT_SPY_REPLACE_URI = uri => {
   const dubbleEncode = input => encodeURIComponent(encodeURIComponent(input))
   const toReturn = /\/\/chrome\-extension/.test(uri)
     ? uri
-    : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${uri}`)
-      ? `http://localhost:8080/proxy/${dubbleEncode(uri)}`
-      : `http://localhost:8080/proxy/${dubbleEncode(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri)}`
+    : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${uri}`)
+      ? `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(uri)}`
+      : `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri)}`
   return toReturn
 }
 

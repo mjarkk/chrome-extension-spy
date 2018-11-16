@@ -1,13 +1,32 @@
 package types
 
+// Request is the content of a chrome request
+type Request struct {
+	Extension       ChromeExtension   `json:"extension"`       // details of the chrome extension
+	URL             string            `json:"url"`             // request url
+	Type            string            `json:"type"`            // request type (POST or GET)
+	StatusCode      int               `json:"statusCode"`      // response status code
+	RequestHeaders  map[string]string `json:"requestHeaders"`  // request headers
+	ResponseHeaders map[string]string `json:"responseHeaders"` // response headers
+	PostBody        string            `json:"postBody"`        // post request body
+	ResData         string            `json:"resData"`         // response data
+	ResData64       string            `json:"resData64"`       // raw response in base64
+}
+
+// FullAndSmallExt has both the ChromeExtension and ExtensionManifest in 1 struct
+type FullAndSmallExt struct {
+	Small ChromeExtension
+	Full  ExtensionManifest
+}
+
 // ChromeExtension is a small version of extensionManifest with just the right amound of data
 type ChromeExtension struct {
-	Pkg         string // the chrome extension folder name
-	PkgVersion  string // the package version
-	FullPkgURL  string // full url to extension
-	Name        string // extension name
-	ShortName   string // extension longname
-	HomepageURL string // homepage url
+	Pkg         string `json:"pkg"`         // the chrome extension folder name
+	PkgVersion  string `json:"pkgVersion"`  // the package version
+	FullPkgURL  string `json:"fullPkgURL"`  // full url to extension
+	Name        string `json:"name"`        // extension name
+	ShortName   string `json:"shortName"`   // extension longname
+	HomepageURL string `json:"homepageURL"` // homepage url
 }
 
 // ExtensionManifest fully covers most manifest.json files from extensions

@@ -7,39 +7,46 @@ import (
 	"path"
 
 	"github.com/mjarkk/chrome-extension-spy/fs"
+	"github.com/mjarkk/chrome-extension-spy/types"
 )
 
 // Setup sets up the chrome part
-func Setup(extTmpDir chan string) (string, error) {
+func Setup(extTmpDir chan string) (map[string]*types.FullAndSmallExt, string, error) {
+	returnExts := make(map[string]*types.FullAndSmallExt)
 	chromeCommand, err := GetLocation()
 	if err != nil {
-		return chromeCommand, err
+		return returnExts, chromeCommand, err
 	}
 	chromeLocation := Location(chromeCommand)
 
 	tempDir, err := ioutil.TempDir("", "chrome-extension-spy")
 	if err != nil {
-		return chromeCommand, err
+		return returnExts, chromeCommand, err
 	}
 
 	extTmpDir <- tempDir
 
 	err = os.Chmod(tempDir, 0777)
 	if err != nil {
-		return "", err
+		return returnExts, "", err
 	}
 
 	extensions, fullExtensions := GetExtensions(chromeLocation)
 	for id, fullExtension := range fullExtensions {
 		extension := extensions[id]
 
+		returnExts[extension.Pkg] = &types.FullAndSmallExt{
+			Small: extension,
+			Full:  fullExtension,
+		}
+
 		from := path.Join(chromeLocation, extension.Pkg)
 		versions, err := ioutil.ReadDir(from)
 		if err != nil {
-			return chromeCommand, err
+			return returnExts, chromeCommand, err
 		}
 		if len(versions) < 1 {
-			return chromeCommand, errors.New("Extension " + extension.Pkg + " has no version folder")
+			return returnExts, chromeCommand, errors.New("Extension " + extension.Pkg + " has no version folder")
 		}
 		from = path.Join(from, versions[0].Name())
 
@@ -47,16 +54,16 @@ func Setup(extTmpDir chan string) (string, error) {
 
 		err = os.Mkdir(to, 0777)
 		if err != nil {
-			return chromeCommand, err
+			return returnExts, chromeCommand, err
 		}
 
 		fs.CopyDir(from, to, []string{})
 
 		err = EditExtension(to, extension, fullExtension)
 		if err != nil {
-			return chromeCommand, err
+			return returnExts, chromeCommand, err
 		}
 	}
 
-	return chromeCommand, nil
+	return returnExts, chromeCommand, nil
 }
