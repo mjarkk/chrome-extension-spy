@@ -34,7 +34,7 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 	allExts := strings.Join(dirs, ",")
 	cmd = exec.Command(
 		launchCommand,
-		"--user-data-dir="+tempDir,
+		"--user-data-dir="+tempDir, // set the data dir in this case a empty dir to make sure chrome starts fully clean
 		"--disable-background-networking",
 		"--disable-background-timer-throttling",
 		"--disable-backgrounding-occluded-windows",
@@ -56,8 +56,8 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 		"--enable-automation",
 		"--password-store=basic",
 		"--use-mock-keychain",
-		"--load-extension=\""+allExts+"\"",
-		"http://localhost:8080/", // Open chrome with this url
+		"--load-extension=\""+allExts+"\"", // Add all extensions to load
+		"http://localhost:8080/",           // Open chrome with this url
 	)
 	_, err = cmd.Output()
 	return err

@@ -1,6 +1,6 @@
 # Web static
 This is the web gui that can be access on http://localhost:8080  
-It's mostly made with lit-html
+It's mostly made with [lit-html](https://lit-html.polymer-project.org)
 
 ## To build
 - `yarn`
