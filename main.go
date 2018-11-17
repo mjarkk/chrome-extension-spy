@@ -48,7 +48,7 @@ func run() error {
 		tasks.Done()
 	}()
 	go func() {
-		webserverErr = webserver.StartWebServer(forceClose, extensions)
+		webserverErr = webserver.StartWebServer(tempDir, forceClose, extensions)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()

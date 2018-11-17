@@ -4,10 +4,74 @@
   border 0px solid black
 
 body
-  font-family 'Open Sans', sans-serif
+  font-family 'Quicksand', sans-serif
+  font-weight 500
   font-size 18px
+  background-color #efefef
 
 .flex
   display flex
   justify-content center
   align-items center
+
+.intro-screen
+  flex-direction column
+  width 100%
+  h2
+    font-weight 400
+    padding 50px 10px 40px 10px
+  .reqests
+    flex-direction column
+    width 100%
+    .req
+      width 100%
+      max-width 700px
+      box-sizing border-box
+      padding 4px 10px
+      .container
+        border-radius 10px
+        background-color white
+        overflow hidden
+        box-shadow 0px 6px 40px -10px rgba(0,0,0,0.2)
+        padding 10px 20px
+        will-change transform
+        transition transform .2s
+        transform scale(1,1)
+        cursor pointer
+        &:hover
+          transform scale(1.02,1.02)
+        .row
+          justify-content flex-start
+          flex-direction row
+          flex-wrap nowrap
+          .logoAndName
+            display flex
+          img
+            max-height 22px
+            max-width 22px
+            min-height 22px
+            min-width 22px
+            margin-right 5px
+          .tag 
+            min-width 90px
+            div
+              border-radius 4px
+              padding 1px 4px
+              text-align center
+              font-size: 15px
+              background-color #eee
+              display inline-block
+              font-weight 600
+            .green
+              background-color #b8ffe5
+            .red
+              background-color #ffd0c6
+          .url 
+            font-size: 17px
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+        .row1
+          padding-bottom 4px
+          justify-content space-between
+

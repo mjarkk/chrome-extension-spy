@@ -98,8 +98,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit-html */ "./node_modules/lit-html/lit-html.js");
 /* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style/index.styl */ "./dev/style/index.styl");
 /* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_index_styl__WEBPACK_IMPORTED_MODULE_1__);
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  <div class=\"intro-screen flex\">\n    <h2>Web request</h2>\n    <div class=\"reqests flex\">\n      ", "\n    </div>\n  </div>\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["<div class=\"loading\">loading data..</div>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n        <div class=\"req\">\n          <div class=\"container\">\n            <div class=\"row row1 flex\">\n              <div class=\"logoAndName\">\n                <img src=\"/extLogo/", "\"/>\n                <div class=\"pkgName\">", "</div>\n              </div>\n              <div class=\"moreDetails\">", "</div>\n            </div>\n            <div class=\"row row2 flex\">\n              <div class=\"tag\"><div class=\"", "\">", " ", "</div></div>\n              <div class=\"url\">", "</div>\n            </div>\n          </div>\n        </div>\n      "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  <div class=\"intro-screen flex\">\n    <h2>Web request</h2>\n    <div class=\"list\">\n      ", "\n    </div>\n  </div>\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -109,7 +139,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  \n"]);
+  var data = _taggedTemplateLiteral(["\n  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path opacity=\".87\" fill=\"none\" d=\"M24 24H0V0h24v24z\"/><path d=\"M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z\"/></svg>\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -124,6 +154,22 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var log = console.log;
 log('View the full source code on github: https://github.com/mjarkk/chrome-extension-spy');
+
+var setup = function setup() {
+  fetch('/lastRequests').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    lastReqests = data;
+    return fetch('/extensionsInfo');
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    extensions = data;
+    r();
+  });
+};
+
+var extensions = {};
 var lastReqests = [];
 
 var addToLastRequests = function addToLastRequests(item) {
@@ -131,12 +177,26 @@ var addToLastRequests = function addToLastRequests(item) {
   r();
 };
 
+var extItem = function extItem(pkgId, path) {
+  return path.split(".").reduce(function (acc, val) {
+    return acc && acc[val] ? acc[val] : undefined;
+  }, extensions[pkgId]);
+};
+
+var statusColor = function statusColor(c) {
+  return c >= 400 ? 'red' : 'green';
+};
+
+var moreIcon = Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject());
+
 var getList = function getList() {
-  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject());
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject2(), lastReqests.length ? lastReqests.reverse().map(function (req) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject3(), req.pkg, extItem(req.pkg, 'Small.name'), moreIcon, statusColor(req.code), req.type, req.code, req.url);
+  }) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject4()));
 };
 
 var toRender = function toRender() {
-  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject2(), getList());
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject5(), getList());
 };
 
 var r = function r() {
@@ -144,6 +204,7 @@ var r = function r() {
 };
 
 r();
+setup();
 
 /***/ }),
 
@@ -189,7 +250,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "* {\n  margin: 0px;\n  padding: 0px;\n  border: 0px solid #000;\n}\nbody {\n  font-family: 'Open Sans', sans-serif;\n  font-size: 18px;\n}\n.flex {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n", ""]);
+exports.push([module.i, "* {\n  margin: 0px;\n  padding: 0px;\n  border: 0px solid #000;\n}\nbody {\n  font-family: 'Quicksand', sans-serif;\n  font-weight: 500;\n  font-size: 18px;\n  background-color: #efefef;\n}\n.flex {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.intro-screen {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen h2 {\n  font-weight: 400;\n  padding: 50px 10px 40px 10px;\n}\n.intro-screen .reqests {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen .reqests .req {\n  width: 100%;\n  max-width: 700px;\n  box-sizing: border-box;\n  padding: 4px 10px;\n}\n.intro-screen .reqests .req .container {\n  border-radius: 10px;\n  background-color: #fff;\n  overflow: hidden;\n  box-shadow: 0px 6px 40px -10px rgba(0,0,0,0.2);\n  padding: 10px 20px;\n  will-change: transform;\n  transition: transform 0.2s;\n  transform: scale(1, 1);\n  cursor: pointer;\n}\n.intro-screen .reqests .req .container:hover {\n  transform: scale(1.02, 1.02);\n}\n.intro-screen .reqests .req .container .row {\n  justify-content: flex-start;\n  flex-direction: row;\n  flex-wrap: nowrap;\n}\n.intro-screen .reqests .req .container .row .logoAndName {\n  display: flex;\n}\n.intro-screen .reqests .req .container .row img {\n  max-height: 22px;\n  max-width: 22px;\n  min-height: 22px;\n  min-width: 22px;\n  margin-right: 5px;\n}\n.intro-screen .reqests .req .container .row .tag {\n  min-width: 90px;\n}\n.intro-screen .reqests .req .container .row .tag div {\n  border-radius: 4px;\n  padding: 1px 4px;\n  text-align: center;\n  font-size: 15px;\n  background-color: #eee;\n  display: inline-block;\n  font-weight: 600;\n}\n.intro-screen .reqests .req .container .row .tag .green {\n  background-color: #b8ffe5;\n}\n.intro-screen .reqests .req .container .row .tag .red {\n  background-color: #ffd0c6;\n}\n.intro-screen .reqests .req .container .row .url {\n  font-size: 17px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.intro-screen .reqests .req .container .row1 {\n  padding-bottom: 4px;\n  justify-content: space-between;\n}\n", ""]);
 
 // exports
 

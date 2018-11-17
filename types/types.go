@@ -1,5 +1,14 @@
 package types
 
+// SmallRequest is a small version of request
+type SmallRequest struct {
+	Pkg  string `json:"pkg"`  // package
+	URL  string `json:"url"`  // the request url
+	Type string `json:"type"` // request type (POST or GET)
+	Code int    `json:"code"` // status code
+	Hash string `json:"hash"` // the request hash
+}
+
 // Request is the content of a chrome request
 type Request struct {
 	Extension       ChromeExtension   `json:"extension"`       // details of the chrome extension
@@ -11,6 +20,7 @@ type Request struct {
 	PostBody        string            `json:"postBody"`        // post request body
 	ResData         string            `json:"resData"`         // response data
 	ResData64       string            `json:"resData64"`       // raw response in base64
+	Hash            string            `json:"hash"`            // the request hash
 }
 
 // FullAndSmallExt has both the ChromeExtension and ExtensionManifest in 1 struct
