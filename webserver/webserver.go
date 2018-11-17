@@ -149,6 +149,17 @@ func extLogo(c *gin.Context, tmpDir string) {
 	c.Data(200, http.DetectContentType(buff), buff)
 }
 
+func requestInfo(c *gin.Context) {
+	toSearchFor := c.Param("id")
+	var res types.Request
+	for _, req := range globalData {
+		if req.Hash == toSearchFor {
+			res = req
+		}
+	}
+	c.JSON(200, res)
+}
+
 // StartWebServer starts the web serve
 func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[string]*types.FullAndSmallExt) error {
 	extsMap = extenisons
@@ -161,6 +172,7 @@ func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[stri
 	r.POST("/proxy/:appid/:url", proxyHandelerPost)
 	r.GET("/lastRequests", lastRequests)
 	r.GET("/extensionsInfo", extensionsInfo)
+	r.GET("/requestInfo/:id", requestInfo)
 	r.GET("/extLogo/:extID", func(c *gin.Context) {
 		extLogo(c, tmpDir)
 	})

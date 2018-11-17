@@ -98,8 +98,168 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit-html */ "./node_modules/lit-html/lit-html.js");
 /* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style/index.styl */ "./dev/style/index.styl");
 /* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_index_styl__WEBPACK_IMPORTED_MODULE_1__);
+function _templateObject21() {
+  var data = _taggedTemplateLiteral(["\n  <div class=\"intro-screen flex\">\n    <h2>Web request</h2>\n    ", "\n    <div class=\"reqests flex\">\n      ", "\n    </div>\n  </div>\n"]);
+
+  _templateObject21 = function _templateObject21() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject20() {
+  var data = _taggedTemplateLiteral(["<div class=\"loading\">loading data..</div>"]);
+
+  _templateObject20 = function _templateObject20() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject19() {
+  var data = _taggedTemplateLiteral(["\n        <div class=\"req\">\n          <div class=\"container\" @click=", ">\n            <div class=\"row row1 flex\">\n              <div class=\"logoAndName\">\n                <img src=\"/extLogo/", "\"/>\n                <div class=\"pkgName\">", "</div>\n              </div>\n              <div class=\"moreDetails\">", "</div>\n            </div>\n            <div class=\"row row2 flex\">\n              <div class=\"tag\"><div class=\"", "\">", " ", "</div></div>\n              <div class=\"url\">", "</div>\n            </div>\n          </div>\n        </div>\n      "]);
+
+  _templateObject19 = function _templateObject19() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject18() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject18 = function _templateObject18() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject17() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject17 = function _templateObject17() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject16() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject16 = function _templateObject16() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject15() {
+  var data = _taggedTemplateLiteral(["\n              <pre>", "</pre>\n            "]);
+
+  _templateObject15 = function _templateObject15() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject14() {
+  var data = _taggedTemplateLiteral(["Non post request types don't have post data"]);
+
+  _templateObject14 = function _templateObject14() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject13() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page3\">\n            ", "\n          </div>"]);
+
+  _templateObject13 = function _templateObject13() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject12() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject12 = function _templateObject12() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject11() {
+  var data = _taggedTemplateLiteral(["\n              <pre>", "</pre>\n            "]);
+
+  _templateObject11 = function _templateObject11() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page2\">\n            ", "\n          </div>"]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n                <div class=\"headerItem\"><span class=\"item1\">", "</span><span class=\"item2\">", "</span></div> \n              "]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n                <div class=\"headerItem\"><span class=\"item1\">", "</span><span class=\"item2\">", "</span></div> \n              "]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n              <h3>Request</h3>\n              ", "\n              <h3>Response</h3>\n              ", "\n            "]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  <div class=\"intro-screen flex\">\n    <h2>Web request</h2>\n    <div class=\"reqests flex\">\n      ", "\n    </div>\n  </div>\n"]);
+  var data = _taggedTemplateLiteral(["<div class=\"page page1\">\n            ", "\n          </div>"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -109,7 +269,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["<div class=\"loading\">loading data..</div>"]);
+  var data = _taggedTemplateLiteral(["<div class=\"page page0\">\n            <div class=\"info\"><span class=\"item1\">Url</span><span class=\"item2\">", "</span></div>\n            <div class=\"info\"><span class=\"item1\">Type</span><span class=\"item2\">", "</span></div>\n            <div class=\"info\"><span class=\"item1\">Status</span><span class=\"item2\">", "</span></div>\n          </div>"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -119,7 +279,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n        <div class=\"req\">\n          <div class=\"container\">\n            <div class=\"row row1 flex\">\n              <div class=\"logoAndName\">\n                <img src=\"/extLogo/", "\"/>\n                <div class=\"pkgName\">", "</div>\n              </div>\n              <div class=\"moreDetails\">", "</div>\n            </div>\n            <div class=\"row row2 flex\">\n              <div class=\"tag\"><div class=\"", "\">", " ", "</div></div>\n              <div class=\"url\">", "</div>\n            </div>\n          </div>\n        </div>\n      "]);
+  var data = _taggedTemplateLiteral(["\n  <div class=\"popupWrapper\">\n    <div class=\"popup\">\n      <div class=\"header\">\n        <div class=\"row row1\">\n          <img src=\"/extLogo/", "\"/>\n          <div class=\"tag\">\n            <div class=\"", "\">", " ", "</div>\n          </div>\n        </div>\n        <div class=\"row row2\">\n          <div @click=", ">General</div>\n          <div @click=", ">Headers</div>\n          <div @click=", ">Resonse</div>\n          <div @click=", ">PostData</div>\n        </div>\n      </div>\n      ", "\n    </div>\n  </div>\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -129,7 +289,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+  var data = _taggedTemplateLiteral([""]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -159,7 +319,7 @@ var setup = function setup() {
   fetch('/lastRequests').then(function (r) {
     return r.json();
   }).then(function (data) {
-    lastReqests = data;
+    lastReqests = data.reverse();
     return fetch('/extensionsInfo');
   }).then(function (r) {
     return r.json();
@@ -172,11 +332,6 @@ var setup = function setup() {
 var extensions = {};
 var lastReqests = [];
 
-var addToLastRequests = function addToLastRequests(item) {
-  lastReqests.push(item);
-  r();
-};
-
 var extItem = function extItem(pkgId, path) {
   return path.split(".").reduce(function (acc, val) {
     return acc && acc[val] ? acc[val] : undefined;
@@ -188,15 +343,75 @@ var statusColor = function statusColor(c) {
 };
 
 var moreIcon = Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject());
+var empty_pData = {
+  onTab: 0,
+  showPopup: false,
+  hasLoaded: false,
+  firstloadReq: {
+    code: 0,
+    hash: '',
+    pkg: '',
+    type: '',
+    url: ''
+  },
+  extension: {
+    fullPkgURL: '',
+    homepageURL: '',
+    name: '',
+    pkg: '',
+    pkgVersion: '',
+    shortName: ''
+  },
+  req: {}
+};
+var pData = Object.assign({}, empty_pData);
+
+var loadPopupData = function loadPopupData(item) {
+  pData = Object.assign({}, empty_pData);
+  pData.showPopup = true;
+  pData.firstloadReq = item;
+  pData.extension = extensions[item.pkg];
+  r();
+  fetch('/requestInfo/' + item.hash).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    pData.req = data;
+    pData.hasLoaded = true;
+    console.log(pData);
+    r();
+  });
+};
+
+var popup = function popup() {
+  return !pData.showPopup ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject2()) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject3(), pData.firstloadReq.pkg, statusColor(pData.firstloadReq.code), pData.firstloadReq.type, pData.firstloadReq.code, function () {
+    pData.onTab = 0;
+    r();
+  }, function () {
+    pData.onTab = 1;
+    r();
+  }, function () {
+    pData.onTab = 2;
+    r();
+  }, function () {
+    pData.onTab = 3;
+    r();
+  }, pData.onTab == 0 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject4(), pData.firstloadReq.url, pData.firstloadReq.url, pData.firstloadReq.code) : pData.onTab == 1 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject5(), pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject6(), Object.keys(pData.req.requestHeaders).map(function (el) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject7(), el, pData.req.requestHeaders[el]);
+  }), Object.keys(pData.req.responseHeaders).map(function (el) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject8(), el, pData.req.responseHeaders[el]);
+  })) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject9())) : pData.onTab == 2 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject10(), pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject11(), pData.req.resData) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject12())) : pData.onTab == 3 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject13(), pData.firstloadReq.type != "POST" ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject14()) : pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject15(), pData.req.postBody) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject16())) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject17()));
+};
 
 var getList = function getList() {
-  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject2(), lastReqests.length ? lastReqests.reverse().map(function (req) {
-    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject3(), req.pkg, extItem(req.pkg, 'Small.name'), moreIcon, statusColor(req.code), req.type, req.code, req.url);
-  }) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject4()));
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject18(), lastReqests.length ? lastReqests.map(function (req) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject19(), function () {
+      return loadPopupData(req);
+    }, req.pkg, extItem(req.pkg, 'Small.name'), moreIcon, statusColor(req.code), req.type, req.code, req.url);
+  }) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject20()));
 };
 
 var toRender = function toRender() {
-  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject5(), getList());
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject21(), popup(), getList());
 };
 
 var r = function r() {
