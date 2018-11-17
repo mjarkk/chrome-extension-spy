@@ -24,7 +24,7 @@ let lastReqests = []
 
 const extItem = (pkgId, path) => 
   path
-    .split(".")
+    .split('.')
     .reduce((acc, val) => acc && acc[val] ? acc[val] : undefined, extensions[pkgId])
 
 const statusColor = c => 
@@ -132,7 +132,7 @@ const popup = () => !pData.showPopup ? html`` : html`
           </div>`
         : pData.onTab == 3 ?
           html`<div class="page page3">
-            ${pData.firstloadReq.type != "POST" 
+            ${pData.firstloadReq.type != 'POST' 
             ? html `Non post request types don't have post data` : pData.hasLoaded ? html`
               <pre>${pData.req.postBody}</pre>
             ` : html`Loading data...`}
