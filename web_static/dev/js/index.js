@@ -19,6 +19,26 @@ const setup = () => {
   })
 }
 
+const checkIfJson = input => {
+  let returnValue = input
+  try {
+    const testValue = JSON.parse(input)
+    returnValue = testValue
+  } catch (error) {
+    console.log('can\'t convert input to json')
+  }
+  return returnValue
+}
+
+const nicifyOutput = input => {
+  const testValue = checkIfJson(input)
+  if (typeof testValue == 'object') {
+    return JSON.stringify(testValue, null, 2)
+  } else {
+    return input
+  }
+}
+
 let extensions = {}
 let lastReqests = []
 
@@ -34,6 +54,10 @@ const statusColor = c =>
 
 const moreIcon = html`
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M24 24H0V0h24v24z"/><path d="M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z"/></svg>
+`
+
+const closeIcon = html`
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>
 `
 
 const empty_pData = {
@@ -76,39 +100,59 @@ const loadPopupData = item => {
   })
 }
 
+const closePopup = e => {
+  if ((e.toElement && e.toElement.classList && e.toElement.classList.value && e.toElement.classList.value.indexOf('popupWrapper') != -1) || (typeof e == 'boolean' && e)) {
+    pData.showPopup = false
+    r()
+  }
+}
+
 const popup = () => !pData.showPopup ? html`` : html`
-  <div class="popupWrapper">
+  <div class="popupWrapper flex" @click=${closePopup}>
     <div class="popup">
       <div class="header">
         <div class="row row1">
+          <div class="close" @click=${() => closePopup(true)}>${closeIcon}</div>
           <img src="/extLogo/${pData.firstloadReq.pkg}"/>
           <div class="tag">
             <div class="${statusColor(pData.firstloadReq.code)}">${pData.firstloadReq.type} ${pData.firstloadReq.code}</div>
           </div>
         </div>
         <div class="row row2">
-          <div @click=${() => {
-            pData.onTab = 0
-            r()
-          }}>General</div>
-          <div @click=${() => {
-            pData.onTab = 1
-            r()
-          }}>Headers</div>
-          <div @click=${() => {
-            pData.onTab = 2
-            r()
-          }}>Resonse</div>
-          <div @click=${() => {
-            pData.onTab = 3
-            r()
-          }}>PostData</div>
+          <div 
+            class="${pData.onTab == 0 ? 'active' : ''}"
+            @click=${() => {
+              pData.onTab = 0
+              r()
+            }}
+          >General</div>
+          <div 
+            class="${pData.onTab == 1 ? 'active' : ''}"
+            @click=${() => {
+              pData.onTab = 1
+              r()
+            }}
+          >Headers</div>
+          <div 
+            class="${pData.onTab == 2 ? 'active' : ''}"
+            @click=${() => {
+              pData.onTab = 2
+              r()
+            }}
+          >Resonse</div>
+          <div 
+            class="${pData.onTab == 3 ? 'active' : ''}"
+            @click=${() => {
+              pData.onTab = 3
+              r()
+            }}
+          >PostData</div>
         </div>
       </div>
       ${ pData.onTab == 0 ?
           html`<div class="page page0">
             <div class="info"><span class="item1">Url</span><span class="item2">${pData.firstloadReq.url}</span></div>
-            <div class="info"><span class="item1">Type</span><span class="item2">${pData.firstloadReq.url}</span></div>
+            <div class="info"><span class="item1">Type</span><span class="item2">${pData.firstloadReq.type}</span></div>
             <div class="info"><span class="item1">Status</span><span class="item2">${pData.firstloadReq.code}</span></div>
           </div>`
         : pData.onTab == 1 ?
@@ -127,6 +171,7 @@ const popup = () => !pData.showPopup ? html`` : html`
         : pData.onTab == 2 ?
           html`<div class="page page2">
             ${pData.hasLoaded ? html`
+              <div class="tip">If the data look wired the response data is probebly not text</div>
               <pre>${ pData.req.resData }</pre>
             ` : html`Loading data...`}
           </div>`
@@ -134,7 +179,7 @@ const popup = () => !pData.showPopup ? html`` : html`
           html`<div class="page page3">
             ${pData.firstloadReq.type != 'POST' 
             ? html `Non post request types don't have post data` : pData.hasLoaded ? html`
-              <pre>${pData.req.postBody}</pre>
+              <pre>${nicifyOutput(pData.req.postBody)}</pre>
             ` : html`Loading data...`}
           </div>`
         : html``

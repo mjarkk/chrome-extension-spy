@@ -75,3 +75,83 @@ body
           padding-bottom 4px
           justify-content space-between
 
+.popupWrapper
+  position fixed
+  top 0px
+  left 0px
+  height 100vh
+  width 100vw
+  box-sizing border-box
+  padding 40px
+  background-color rgba(255,255,255,0.6)
+  z-index 3
+  .popup
+    border-radius 20px
+    overflow hidden
+    background-color white
+    width 100%
+    height 100%
+    box-shadow 0px 5px 45px -17px rgba(0,0,0,0.4)
+    .header
+      .row
+        display flex
+        flex-direction row
+        flex-wrap nowrap
+        align-items center
+        justify-content flex-start
+        .close
+          cursor pointer
+          top 2px
+          position relative
+          padding-right 5px
+        img 
+          height 40px
+        .tag
+          margin-left 10px
+          div
+            border-radius 4px
+            padding 1px 4px
+            text-align center
+            font-size 15px
+            background-color #eee
+            display inline-block
+            font-weight 600
+          .green
+            background-color #b8ffe5
+          .red
+            background-color #ffd0c6
+      .row1
+        padding 10px
+      .row2
+        border-bottom 1px solid #ccc
+        margin-bottom 2px
+        padding 6px
+        div
+          background-color white
+          cursor pointer
+          padding 0px 10px
+          margin-right 3px
+          border 3px solid #a9fce4
+          border-radius 20px
+          font-size 17px
+        .active
+          background-color #cdfef0
+    .page
+      padding 10px
+      h3
+        padding: 5px 0px
+      .tip
+        font-size 15px
+        padding-bottom 5px
+        font-style italic
+        color #0ca09c
+      .info, .headerItem
+        padding-bottom 3px 
+        .item1
+          color rgb(110, 110, 110)
+          &::after
+            content ': '
+        .item2 {}
+      pre
+        background-color #efefef
+        overflow-x scroll
