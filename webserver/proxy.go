@@ -3,6 +3,7 @@ package webserver
 import (
 	"bytes"
 	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -34,7 +35,7 @@ func proxyHandeler(c *gin.Context, reqType string) {
 	if err != nil {
 		dataToSave.StatusCode = http.StatusConflict
 		dataToSave.ResData = ""
-		dataToSave.ResRawData = []byte{}
+		dataToSave.ResRawData = fmt.Sprintf("%s", hex.Dump([]byte{}))
 		dataToSave.ProxyErrors = append(dataToSave.ProxyErrors, "Not beable to parse url")
 		c.String(http.StatusConflict, "")
 		return
@@ -61,7 +62,7 @@ func proxyHandeler(c *gin.Context, reqType string) {
 		sCode := 400
 		dataToSave.StatusCode = sCode
 		dataToSave.ResData = ""
-		dataToSave.ResRawData = []byte{}
+		dataToSave.ResRawData = fmt.Sprintf("%s", hex.Dump([]byte{}))
 		c.String(sCode, "")
 		dataToSave.ProxyErrors = append(dataToSave.ProxyErrors, "Error while trying to send request")
 		return
@@ -79,7 +80,7 @@ func proxyHandeler(c *gin.Context, reqType string) {
 	}
 
 	dataToSave.ResData = string(body)
-	dataToSave.ResRawData = body
+	dataToSave.ResRawData = fmt.Sprintf("%s", hex.Dump(body))
 	dataToSave.StatusCode = rs.StatusCode
 
 	c.Data(rs.StatusCode, rs.Header.Get("Content-Type"), body)

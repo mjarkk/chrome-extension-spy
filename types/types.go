@@ -19,7 +19,7 @@ type Request struct {
 	ResponseHeaders map[string]string `json:"responseHeaders"` // response headers
 	PostBody        string            `json:"postBody"`        // post request body
 	ResData         string            `json:"resData"`         // response data
-	ResRawData      []byte            `json:"resRawData"`      // raw response
+	ResRawData      string            `json:"resRawData"`      // raw response
 	Hash            string            `json:"hash"`            // the request hash
 	ProxyErrors     []string          `json:"proxyErrors"`     // if the proxy had any errors they will show up here
 }
