@@ -1,2 +1,2364 @@
-/*! For license information please see bundel.js.LICENSE */
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=5)}([function(e,t,n){var r=n(1);"string"==typeof r&&(r=[[e.i,r,""]]);var o={hmr:!0,transform:void 0,insertInto:void 0};n(3)(r,o);r.locals&&(e.exports=r.locals)},function(e,t,n){(e.exports=n(2)(!1)).push([e.i,"* {\n  margin: 0px;\n  padding: 0px;\n  border: 0px solid #000;\n}\nbody {\n  font-family: 'Quicksand', sans-serif;\n  font-weight: 500;\n  font-size: 18px;\n  background-color: #efefef;\n}\n.flex {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.intro-screen {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen h2 {\n  font-weight: 400;\n  padding: 50px 10px 40px 10px;\n}\n.intro-screen .reqests {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen .reqests .req {\n  width: 100%;\n  max-width: 700px;\n  box-sizing: border-box;\n  padding: 4px 10px;\n}\n.intro-screen .reqests .req .container {\n  border-radius: 10px;\n  background-color: #fff;\n  overflow: hidden;\n  box-shadow: 0px 6px 40px -10px rgba(0,0,0,0.2);\n  padding: 10px 20px;\n  will-change: transform;\n  transition: transform 0.2s;\n  transform: scale(1, 1);\n  cursor: pointer;\n}\n.intro-screen .reqests .req .container:hover {\n  transform: scale(1.02, 1.02);\n}\n.intro-screen .reqests .req .container .row {\n  justify-content: flex-start;\n  flex-direction: row;\n  flex-wrap: nowrap;\n}\n.intro-screen .reqests .req .container .row .logoAndName {\n  display: flex;\n}\n.intro-screen .reqests .req .container .row img {\n  max-height: 22px;\n  max-width: 22px;\n  min-height: 22px;\n  min-width: 22px;\n  margin-right: 5px;\n}\n.intro-screen .reqests .req .container .row .tag {\n  min-width: 90px;\n}\n.intro-screen .reqests .req .container .row .tag div {\n  border-radius: 4px;\n  padding: 1px 4px;\n  text-align: center;\n  font-size: 15px;\n  background-color: #eee;\n  display: inline-block;\n  font-weight: 600;\n}\n.intro-screen .reqests .req .container .row .tag .green {\n  background-color: #b8ffe5;\n}\n.intro-screen .reqests .req .container .row .tag .red {\n  background-color: #ffd0c6;\n}\n.intro-screen .reqests .req .container .row .url {\n  font-size: 17px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.intro-screen .reqests .req .container .row1 {\n  padding-bottom: 4px;\n  justify-content: space-between;\n}\n.popupWrapper {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  height: 100vh;\n  width: 100vw;\n  box-sizing: border-box;\n  padding: 40px;\n  background-color: rgba(255,255,255,0.6);\n  z-index: 3;\n}\n.popupWrapper .popup {\n  border-radius: 20px;\n  overflow: hidden;\n  background-color: #fff;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 5px 45px -17px rgba(0,0,0,0.4);\n}\n.popupWrapper .popup .header .row {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  align-items: center;\n  justify-content: flex-start;\n}\n.popupWrapper .popup .header .row .close {\n  cursor: pointer;\n  top: 2px;\n  position: relative;\n  padding-right: 5px;\n}\n.popupWrapper .popup .header .row img {\n  height: 40px;\n}\n.popupWrapper .popup .header .row .tag {\n  margin-left: 10px;\n}\n.popupWrapper .popup .header .row .tag div {\n  border-radius: 4px;\n  padding: 1px 4px;\n  text-align: center;\n  font-size: 15px;\n  background-color: #eee;\n  display: inline-block;\n  font-weight: 600;\n}\n.popupWrapper .popup .header .row .tag .green {\n  background-color: #b8ffe5;\n}\n.popupWrapper .popup .header .row .tag .red {\n  background-color: #ffd0c6;\n}\n.popupWrapper .popup .header .row1 {\n  padding: 10px;\n}\n.popupWrapper .popup .header .row2 {\n  border-bottom: 1px solid #ccc;\n  margin-bottom: 2px;\n  padding: 6px;\n}\n.popupWrapper .popup .header .row2 div {\n  background-color: #fff;\n  cursor: pointer;\n  padding: 0px 10px;\n  margin-right: 3px;\n  border: 3px solid #a9fce4;\n  border-radius: 20px;\n  font-size: 17px;\n}\n.popupWrapper .popup .header .row2 .active {\n  background-color: #cdfef0;\n}\n.popupWrapper .popup .page {\n  padding: 10px;\n}\n.popupWrapper .popup .page h3 {\n  padding: 5px 0px;\n}\n.popupWrapper .popup .page .tip {\n  font-size: 15px;\n  padding-bottom: 5px;\n  font-style: italic;\n  color: #0ca09c;\n}\n.popupWrapper .popup .page .info,\n.popupWrapper .popup .page .headerItem {\n  padding-bottom: 3px;\n}\n.popupWrapper .popup .page .info .item1,\n.popupWrapper .popup .page .headerItem .item1 {\n  color: #6e6e6e;\n}\n.popupWrapper .popup .page .info .item1::after,\n.popupWrapper .popup .page .headerItem .item1::after {\n  content: ': ';\n}\n.popupWrapper .popup .page pre {\n  background-color: #efefef;\n  overflow-x: scroll;\n}\n",""])},function(e,t){e.exports=function(e){var t=[];return t.toString=function(){return this.map(function(t){var n=function(e,t){var n=e[1]||"",r=e[3];if(!r)return n;if(t&&"function"==typeof btoa){var o=(s=r,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(s))))+" */"),i=r.sources.map(function(e){return"/*# sourceURL="+r.sourceRoot+e+" */"});return[n].concat(i).concat([o]).join("\n")}var s;return[n].join("\n")}(t,e);return t[2]?"@media "+t[2]+"{"+n+"}":n}).join("")},t.i=function(e,n){"string"==typeof e&&(e=[[null,e,""]]);for(var r={},o=0;o<this.length;o++){var i=this[o][0];"number"==typeof i&&(r[i]=!0)}for(o=0;o<e.length;o++){var s=e[o];"number"==typeof s[0]&&r[s[0]]||(n&&!s[2]?s[2]=n:n&&(s[2]="("+s[2]+") and ("+n+")"),t.push(s))}},t}},function(e,t,n){var r,o,i={},s=(r=function(){return window&&document&&document.all&&!window.atob},function(){return void 0===o&&(o=r.apply(this,arguments)),o}),a=function(e){var t={};return function(e){if("function"==typeof e)return e();if(void 0===t[e]){var n=function(e){return document.querySelector(e)}.call(this,e);if(window.HTMLIFrameElement&&n instanceof window.HTMLIFrameElement)try{n=n.contentDocument.head}catch(e){n=null}t[e]=n}return t[e]}}(),p=null,c=0,l=[],u=n(4);function d(e,t){for(var n=0;n<e.length;n++){var r=e[n],o=i[r.id];if(o){o.refs++;for(var s=0;s<o.parts.length;s++)o.parts[s](r.parts[s]);for(;s<r.parts.length;s++)o.parts.push(x(r.parts[s],t))}else{var a=[];for(s=0;s<r.parts.length;s++)a.push(x(r.parts[s],t));i[r.id]={id:r.id,refs:1,parts:a}}}}function f(e,t){for(var n=[],r={},o=0;o<e.length;o++){var i=e[o],s=t.base?i[0]+t.base:i[0],a={css:i[1],media:i[2],sourceMap:i[3]};r[s]?r[s].parts.push(a):n.push(r[s]={id:s,parts:[a]})}return n}function h(e,t){var n=a(e.insertInto);if(!n)throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");var r=l[l.length-1];if("top"===e.insertAt)r?r.nextSibling?n.insertBefore(t,r.nextSibling):n.appendChild(t):n.insertBefore(t,n.firstChild),l.push(t);else if("bottom"===e.insertAt)n.appendChild(t);else{if("object"!=typeof e.insertAt||!e.insertAt.before)throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");var o=a(e.insertInto+" "+e.insertAt.before);n.insertBefore(t,o)}}function v(e){if(null===e.parentNode)return!1;e.parentNode.removeChild(e);var t=l.indexOf(e);t>=0&&l.splice(t,1)}function m(e){var t=document.createElement("style");return void 0===e.attrs.type&&(e.attrs.type="text/css"),g(t,e.attrs),h(e,t),t}function g(e,t){Object.keys(t).forEach(function(n){e.setAttribute(n,t[n])})}function x(e,t){var n,r,o,i;if(t.transform&&e.css){if(!(i=t.transform(e.css)))return function(){};e.css=i}if(t.singleton){var s=c++;n=p||(p=m(t)),r=w.bind(null,n,s,!1),o=w.bind(null,n,s,!0)}else e.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(n=function(e){var t=document.createElement("link");return void 0===e.attrs.type&&(e.attrs.type="text/css"),e.attrs.rel="stylesheet",g(t,e.attrs),h(e,t),t}(t),r=function(e,t,n){var r=n.css,o=n.sourceMap,i=void 0===t.convertToAbsoluteUrls&&o;(t.convertToAbsoluteUrls||i)&&(r=u(r));o&&(r+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */");var s=new Blob([r],{type:"text/css"}),a=e.href;e.href=URL.createObjectURL(s),a&&URL.revokeObjectURL(a)}.bind(null,n,t),o=function(){v(n),n.href&&URL.revokeObjectURL(n.href)}):(n=m(t),r=function(e,t){var n=t.css,r=t.media;r&&e.setAttribute("media",r);if(e.styleSheet)e.styleSheet.cssText=n;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(n))}}.bind(null,n),o=function(){v(n)});return r(e),function(t){if(t){if(t.css===e.css&&t.media===e.media&&t.sourceMap===e.sourceMap)return;r(e=t)}else o()}}e.exports=function(e,t){if("undefined"!=typeof DEBUG&&DEBUG&&"object"!=typeof document)throw new Error("The style-loader cannot be used in a non-browser environment");(t=t||{}).attrs="object"==typeof t.attrs?t.attrs:{},t.singleton||"boolean"==typeof t.singleton||(t.singleton=s()),t.insertInto||(t.insertInto="head"),t.insertAt||(t.insertAt="bottom");var n=f(e,t);return d(n,t),function(e){for(var r=[],o=0;o<n.length;o++){var s=n[o];(a=i[s.id]).refs--,r.push(a)}e&&d(f(e,t),t);for(o=0;o<r.length;o++){var a;if(0===(a=r[o]).refs){for(var p=0;p<a.parts.length;p++)a.parts[p]();delete i[a.id]}}}};var b,y=(b=[],function(e,t){return b[e]=t,b.filter(Boolean).join("\n")});function w(e,t,n,r){var o=n?"":r.css;if(e.styleSheet)e.styleSheet.cssText=y(t,o);else{var i=document.createTextNode(o),s=e.childNodes;s[t]&&e.removeChild(s[t]),s.length?e.insertBefore(i,s[t]):e.appendChild(i)}}},function(e,t){e.exports=function(e){var t="undefined"!=typeof window&&window.location;if(!t)throw new Error("fixUrls requires window.location");if(!e||"string"!=typeof e)return e;var n=t.protocol+"//"+t.host,r=n+t.pathname.replace(/\/[^\/]*$/,"/");return e.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(e,t){var o,i=t.trim().replace(/^"(.*)"$/,function(e,t){return t}).replace(/^'(.*)'$/,function(e,t){return t});return/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(i)?e:(o=0===i.indexOf("//")?i:0===i.indexOf("/")?n+i:r+i.replace(/^\.\//,""),"url("+JSON.stringify(o)+")")})}},function(e,t,n){"use strict";n.r(t);const r=void 0!==window.customElements&&void 0!==window.customElements.polyfillWrapFlushCallback,o=(e,t,n=null)=>{let r=t;for(;r!==n;){const t=r.nextSibling;e.removeChild(r),r=t}},i=e=>"function"==typeof e&&!0===e.__litDirective,s=`{{lit-${String(Math.random()).slice(2)}}}`,a=`\x3c!--${s}--\x3e`,p=new RegExp(`${s}|${a}`),c=(()=>{const e=document.createElement("div");return e.setAttribute("style","{{bad value}}"),"{{bad value}}"!==e.getAttribute("style")})();class l{constructor(e,t){this.parts=[],this.element=t;let n=-1,r=0;const o=[],i=t=>{const a=t.content,l=document.createTreeWalker(a,133,null,!1);let u,h;for(;l.nextNode();){n++,u=h;const t=h=l.currentNode;if(1===t.nodeType){if(t.hasAttributes()){const o=t.attributes;let i=0;for(let e=0;e<o.length;e++)o[e].value.indexOf(s)>=0&&i++;for(;i-- >0;){const o=e.strings[r],i=f.exec(o)[2],s=c&&"style"===i?"style$":/^[a-zA-Z-]*$/.test(i)?i:i.toLowerCase(),a=t.getAttribute(s).split(p);this.parts.push({type:"attribute",index:n,name:i,strings:a}),t.removeAttribute(s),r+=a.length-1}}"TEMPLATE"===t.tagName&&i(t)}else if(3===t.nodeType){const e=t.nodeValue;if(e.indexOf(s)<0)continue;const i=t.parentNode,a=e.split(p),c=a.length-1;r+=c;for(let e=0;e<c;e++)i.insertBefore(""===a[e]?d():document.createTextNode(a[e]),t),this.parts.push({type:"node",index:n++});i.insertBefore(""===a[c]?d():document.createTextNode(a[c]),t),o.push(t)}else if(8===t.nodeType)if(t.nodeValue===s){const e=t.parentNode,i=t.previousSibling;null===i||i!==u||i.nodeType!==Node.TEXT_NODE?e.insertBefore(d(),t):n--,this.parts.push({type:"node",index:n++}),o.push(t),null===t.nextSibling?e.insertBefore(d(),t):n--,h=u,r++}else{let e=-1;for(;-1!==(e=t.nodeValue.indexOf(s,e+1));)this.parts.push({type:"node",index:-1})}}};i(t);for(const e of o)e.parentNode.removeChild(e)}}const u=e=>-1!==e.index,d=()=>document.createComment(""),f=/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F \x09\x0a\x0c\x0d"'>=\/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;class h{constructor(e,t,n){this._parts=[],this.template=e,this.processor=t,this._getTemplate=n}update(e){let t=0;for(const n of this._parts)void 0!==n&&n.setValue(e[t]),t++;for(const e of this._parts)void 0!==e&&e.commit()}_clone(){const e=r?this.template.element.content.cloneNode(!0):document.importNode(this.template.element.content,!0),t=this.template.parts;let n=0,o=0;const i=e=>{const r=document.createTreeWalker(e,133,null,!1);let s=r.nextNode();for(;n<t.length&&null!==s;){const e=t[n];if(u(e))if(o===e.index){if("node"===e.type){const e=this.processor.handleTextExpression(this._getTemplate);e.insertAfterNode(s),this._parts.push(e)}else this._parts.push(...this.processor.handleAttributeExpressions(s,e.name,e.strings));n++}else o++,"TEMPLATE"===s.nodeName&&i(s.content),s=r.nextNode();else this._parts.push(void 0),n++}};return i(e),e}}const v={},m=e=>null===e||!("object"==typeof e||"function"==typeof e);class g{constructor(e,t,n){this.dirty=!0,this.element=e,this.name=t,this.strings=n,this.parts=[];for(let e=0;e<n.length-1;e++)this.parts[e]=this._createPart()}_createPart(){return new x(this)}_getValue(){const e=this.strings,t=e.length-1;let n="";for(let r=0;r<t;r++){n+=e[r];const t=this.parts[r];if(void 0!==t){const e=t.value;if(null!=e&&(Array.isArray(e)||"string"!=typeof e&&e[Symbol.iterator]))for(const t of e)n+="string"==typeof t?t:String(t);else n+="string"==typeof e?e:String(e)}}return n+=e[t]}commit(){this.dirty&&(this.dirty=!1,this.element.setAttribute(this.name,this._getValue()))}}class x{constructor(e){this.value=void 0,this.committer=e}setValue(e){e===v||m(e)&&e===this.value||(this.value=e,i(e)||(this.committer.dirty=!0))}commit(){for(;i(this.value);){const e=this.value;this.value=v,e(this)}this.value!==v&&this.committer.commit()}}class b{constructor(e){this.value=void 0,this._pendingValue=void 0,this.templateFactory=e}insertAfterNode(e){this.startNode=e,this.endNode=e.nextSibling}appendIntoPart(e){e._insert(this.startNode=d()),e._insert(this.endNode=d())}insertAfterPart(e){e._insert(this.startNode=d()),this.endNode=e.endNode,e.endNode=this.startNode}setValue(e){this._pendingValue=e}commit(){for(;i(this._pendingValue);){const e=this._pendingValue;this._pendingValue=v,e(this)}const e=this._pendingValue;e!==v&&(m(e)?e!==this.value&&this._commitText(e):e instanceof q?this._commitTemplateResult(e):e instanceof Node?this._commitNode(e):Array.isArray(e)||e[Symbol.iterator]?this._commitIterable(e):void 0!==e.then?this._commitPromise(e):this._commitText(e))}_insert(e){this.endNode.parentNode.insertBefore(e,this.endNode)}_commitNode(e){this.value!==e&&(this.clear(),this._insert(e),this.value=e)}_commitText(e){const t=this.startNode.nextSibling;e=null==e?"":e,t===this.endNode.previousSibling&&t.nodeType===Node.TEXT_NODE?t.textContent=e:this._commitNode(document.createTextNode("string"==typeof e?e:String(e))),this.value=e}_commitTemplateResult(e){const t=this.templateFactory(e);let n;if(this.value&&this.value.template===t)n=this.value;else{const o=(n=new h(t,e.processor,this.templateFactory))._clone();r&&!this.endNode.isConnected&&(document.adoptNode(o),customElements.upgrade(o)),this._commitNode(o),this.value=n}n.update(e.values)}_commitIterable(e){Array.isArray(this.value)||(this.value=[],this.clear());const t=this.value;let n,r=0;for(const o of e)void 0===(n=t[r])&&(n=new b(this.templateFactory),t.push(n),0===r?n.appendIntoPart(this):n.insertAfterPart(t[r-1])),n.setValue(o),n.commit(),r++;r<t.length&&(t.length=r,this.clear(n&&n.endNode))}_commitPromise(e){this.value=e,e.then(t=>{this.value===e&&(this.setValue(t),this.commit())})}clear(e=this.startNode){o(this.startNode.parentNode,e.nextSibling,this.endNode)}}class y{constructor(e,t,n){if(this.value=void 0,this._pendingValue=void 0,2!==n.length||""!==n[0]||""!==n[1])throw new Error("Boolean attributes can only contain a single expression");this.element=e,this.name=t,this.strings=n}setValue(e){this._pendingValue=e}commit(){for(;i(this._pendingValue);){const e=this._pendingValue;this._pendingValue=v,e(this)}if(this._pendingValue===v)return;const e=!!this._pendingValue;this.value!==e&&(e?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name)),this.value=e,this._pendingValue=v}}class w extends g{constructor(e,t,n){super(e,t,n),this.single=2===n.length&&""===n[0]&&""===n[1]}_createPart(){return new _(this)}_getValue(){return this.single?this.parts[0].value:super._getValue()}commit(){this.dirty&&(this.dirty=!1,this.element[this.name]=this._getValue())}}class _ extends x{}class N{constructor(e,t){this.value=void 0,this._pendingValue=void 0,this.element=e,this.eventName=t}setValue(e){this._pendingValue=e}commit(){for(;i(this._pendingValue);){const e=this._pendingValue;this._pendingValue=v,e(this)}this._pendingValue!==v&&(null==this._pendingValue!=(null==this.value)&&(null==this._pendingValue?this.element.removeEventListener(this.eventName,this):this.element.addEventListener(this.eventName,this)),this.value=this._pendingValue,this._pendingValue=v)}handleEvent(e){"function"==typeof this.value?this.value.call(this.element,e):"function"==typeof this.value.handleEvent&&this.value.handleEvent(e)}}const T=new class{handleAttributeExpressions(e,t,n){const r=t[0];return"."===r?new w(e,t.slice(1),n).parts:"@"===r?[new N(e,t.slice(1))]:"?"===r?[new y(e,t.slice(1),n)]:new g(e,t,n).parts}handleTextExpression(e){return new b(e)}};class q{constructor(e,t,n,r=T){this.strings=e,this.values=t,this.type=n,this.processor=r}getHTML(){const e=this.strings.length-1;let t="",n=!0;for(let r=0;r<e;r++){const e=this.strings[r];t+=e;const o=e.lastIndexOf(">");!(n=(o>-1||n)&&-1===e.indexOf("<",o+1))&&c&&(t=t.replace(f,(e,t,n,r)=>"style"===n?`${t}style$${r}`:e)),t+=n?a:s}return t+=this.strings[e]}getTemplateElement(){const e=document.createElement("template");return e.innerHTML=this.getHTML(),e}}const k=new Map;function L(e,t,n=function(e){let t=k.get(e.type);void 0===t&&(t=new Map,k.set(e.type,t));let n=t.get(e.strings);return void 0===n&&(n=new l(e,e.getTemplateElement()),t.set(e.strings,n)),n}){const i=n(e);let s=t.__templateInstance;if(void 0!==s&&s.template===i&&s.processor===e.processor)return void s.update(e.values);s=new h(i,e.processor,n),t.__templateInstance=s;const a=s._clone();o(t,t.firstChild),r&&!t.isConnected&&(document.adoptNode(a),customElements.upgrade(a)),t.appendChild(a),s.update(e.values)}const V=(e,...t)=>new q(e,t,"html");n(0);function E(){var e=Z(['\n  <div class="intro-screen flex">\n    <h2>Web request</h2>\n    ','\n    <div class="reqests flex">\n      ',"\n    </div>\n  </div>\n"]);return E=function(){return e},e}function j(){var e=Z(['<div class="loading">loading data..</div>']);return j=function(){return e},e}function S(){var e=Z(['\n        <div class="req">\n          <div class="container" @click=','>\n            <div class="row row1 flex">\n              <div class="logoAndName">\n                <img src="/extLogo/','"/>\n                <div class="pkgName">','</div>\n              </div>\n              <div class="moreDetails">','</div>\n            </div>\n            <div class="row row2 flex">\n              <div class="tag"><div class="','">'," ",'</div></div>\n              <div class="url">',"</div>\n            </div>\n          </div>\n        </div>\n      "]);return S=function(){return e},e}function A(){var e=Z(["\n  ","\n"]);return A=function(){return e},e}function O(){var e=Z([""]);return O=function(){return e},e}function R(){var e=Z(["Loading data..."]);return R=function(){return e},e}function W(){var e=Z(["\n              <pre>","</pre>\n            "]);return W=function(){return e},e}function I(){var e=Z(["Non post request types don't have post data"]);return I=function(){return e},e}function M(){var e=Z(['<div class="page page3">\n            ',"\n          </div>"]);return M=function(){return e},e}function P(){var e=Z(["Loading data..."]);return P=function(){return e},e}function U(){var e=Z(['\n              <div class="tip">If the data look wired the response data is probebly not text</div>\n              <pre>',"</pre>\n            "]);return U=function(){return e},e}function C(){var e=Z(['<div class="page page2">\n            ',"\n          </div>"]);return C=function(){return e},e}function B(){var e=Z(["Loading data..."]);return B=function(){return e},e}function z(){var e=Z(['\n                <div class="headerItem"><span class="item1">','</span><span class="item2">',"</span></div> \n              "]);return z=function(){return e},e}function $(){var e=Z(['\n                <div class="headerItem"><span class="item1">','</span><span class="item2">',"</span></div> \n              "]);return $=function(){return e},e}function H(){var e=Z(["\n              <h3>Request</h3>\n              ","\n              <h3>Response</h3>\n              ","\n            "]);return H=function(){return e},e}function F(){var e=Z(['<div class="page page1">\n            ',"\n          </div>"]);return F=function(){return e},e}function D(){var e=Z(['<div class="page page0">\n            <div class="info"><span class="item1">Url</span><span class="item2">','</span></div>\n            <div class="info"><span class="item1">Type</span><span class="item2">','</span></div>\n            <div class="info"><span class="item1">Status</span><span class="item2">',"</span></div>\n          </div>"]);return D=function(){return e},e}function J(){var e=Z(['\n  <div class="popupWrapper flex" @click=','>\n    <div class="popup">\n      <div class="header">\n        <div class="row row1">\n          <div class="close" @click=',">",'</div>\n          <img src="/extLogo/','"/>\n          <div class="tag">\n            <div class="','">'," ",'</div>\n          </div>\n        </div>\n        <div class="row row2">\n          <div \n            class="','"\n            @click=','\n          >General</div>\n          <div \n            class="','"\n            @click=','\n          >Headers</div>\n          <div \n            class="','"\n            @click=','\n          >Resonse</div>\n          <div \n            class="','"\n            @click=',"\n          >PostData</div>\n        </div>\n      </div>\n      ","\n    </div>\n  </div>\n"]);return J=function(){return e},e}function G(){var e=Z([""]);return G=function(){return e},e}function X(){var e=Z(['\n  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>\n']);return X=function(){return e},e}function Q(){var e=Z(['\n  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M24 24H0V0h24v24z"/><path d="M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z"/></svg>\n']);return Q=function(){return e},e}function Z(e,t){return t||(t=e.slice(0)),Object.freeze(Object.defineProperties(e,{raw:{value:Object.freeze(t)}}))}function K(e){return(K="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}(0,console.log)("View the full source code on github: https://github.com/mjarkk/chrome-extension-spy");var Y=function(e){var t=function(e){var t=e;try{t=JSON.parse(e)}catch(e){console.log("can't convert input to json")}return t}(e);return"object"==K(t)?JSON.stringify(t,null,2):e},ee={},te=[],ne=function(e){return e>=400?"red":"green"},re=V(Q()),oe=V(X()),ie={onTab:0,showPopup:!1,hasLoaded:!1,firstloadReq:{code:0,hash:"",pkg:"",type:"",url:""},extension:{fullPkgURL:"",homepageURL:"",name:"",pkg:"",pkgVersion:"",shortName:""},req:{}},se=Object.assign({},ie),ae=function(e){(e.toElement&&e.toElement.classList&&e.toElement.classList.value&&-1!=e.toElement.classList.value.indexOf("popupWrapper")||"boolean"==typeof e&&e)&&(se.showPopup=!1,le())},pe=function(){return V(A(),te.length?te.map(function(e){return V(S(),function(){return t=e,(se=Object.assign({},ie)).showPopup=!0,se.firstloadReq=t,se.extension=ee[t.pkg],le(),void fetch("/requestInfo/"+t.hash).then(function(e){return e.json()}).then(function(e){se.req=e,se.hasLoaded=!0,console.log(se),le()});var t},e.pkg,(t=e.pkg,"Small.name".split(".").reduce(function(e,t){return e&&e[t]?e[t]:void 0},ee[t])),re,ne(e.code),e.type,e.code,e.url);var t}):V(j()))},ce=function(){return V(E(),se.showPopup?V(J(),ae,function(){return ae(!0)},oe,se.firstloadReq.pkg,ne(se.firstloadReq.code),se.firstloadReq.type,se.firstloadReq.code,0==se.onTab?"active":"",function(){se.onTab=0,le()},1==se.onTab?"active":"",function(){se.onTab=1,le()},2==se.onTab?"active":"",function(){se.onTab=2,le()},3==se.onTab?"active":"",function(){se.onTab=3,le()},0==se.onTab?V(D(),se.firstloadReq.url,se.firstloadReq.type,se.firstloadReq.code):1==se.onTab?V(F(),se.hasLoaded?V(H(),Object.keys(se.req.requestHeaders).map(function(e){return V($(),e,se.req.requestHeaders[e])}),Object.keys(se.req.responseHeaders).map(function(e){return V(z(),e,se.req.responseHeaders[e])})):V(B())):2==se.onTab?V(C(),se.hasLoaded?V(U(),se.req.resData):V(P())):3==se.onTab?V(M(),"POST"!=se.firstloadReq.type?V(I()):se.hasLoaded?V(W(),Y(se.req.postBody)):V(R())):V(O())):V(G()),pe())},le=function(){return L(ce(),document.body)};le(),fetch("/lastRequests").then(function(e){return e.json()}).then(function(e){return te=e.reverse(),fetch("/extensionsInfo")}).then(function(e){return e.json()}).then(function(e){ee=e,le()})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./dev/js/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./dev/js/index.js":
+/*!*************************!*\
+  !*** ./dev/js/index.js ***!
+  \*************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lit_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit-html */ "./node_modules/lit-html/lit-html.js");
+/* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style/index.styl */ "./dev/style/index.styl");
+/* harmony import */ var _style_index_styl__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_index_styl__WEBPACK_IMPORTED_MODULE_1__);
+function _templateObject23() {
+  var data = _taggedTemplateLiteral(["\n  <div class=\"intro-screen flex\">\n    <h2>Web request</h2>\n    ", "\n    <div class=\"reqests flex\">\n      ", "\n    </div>\n  </div>\n"]);
+
+  _templateObject23 = function _templateObject23() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject22() {
+  var data = _taggedTemplateLiteral(["<div class=\"loading\">loading data..</div>"]);
+
+  _templateObject22 = function _templateObject22() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject21() {
+  var data = _taggedTemplateLiteral(["<div class=\"no_reqs\">\n          <h2>Great!</h2>\n          <p>Your extensions didn't make any network requests</p>\n          <p>Try to visit some sites and see if that changes anything</p>\n        </div>"]);
+
+  _templateObject21 = function _templateObject21() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject20() {
+  var data = _taggedTemplateLiteral(["\n        <div class=\"req\">\n          <div class=\"container\" @click=", ">\n            <div class=\"row row1 flex\">\n              <div class=\"logoAndName\">\n                <img src=\"/extLogo/", "\"/>\n                <div class=\"pkgName\">", "</div>\n              </div>\n              <div class=\"moreDetails\">", "</div>\n            </div>\n            <div class=\"row row2 flex\">\n              <div class=\"tag\"><div class=\"", "\">", " ", "</div></div>\n              <div class=\"url\">", "</div>\n            </div>\n          </div>\n        </div>\n      "]);
+
+  _templateObject20 = function _templateObject20() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject19() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject19 = function _templateObject19() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject18() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject18 = function _templateObject18() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject17() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject17 = function _templateObject17() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject16() {
+  var data = _taggedTemplateLiteral(["\n              <pre>", "</pre>\n            "]);
+
+  _templateObject16 = function _templateObject16() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject15() {
+  var data = _taggedTemplateLiteral(["Non post request types don't have post data"]);
+
+  _templateObject15 = function _templateObject15() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject14() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page3\">\n            ", "\n          </div>"]);
+
+  _templateObject14 = function _templateObject14() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject13() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject13 = function _templateObject13() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject12() {
+  var data = _taggedTemplateLiteral(["\n              <div class=\"tip\">If the data look wired the response data is probebly not text</div>\n              <pre>", "</pre>\n            "]);
+
+  _templateObject12 = function _templateObject12() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject11() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page2\">\n            ", "\n          </div>"]);
+
+  _templateObject11 = function _templateObject11() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteral(["Loading data..."]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\n                <div class=\"headerItem\"><span class=\"item1\">", "</span><span class=\"item2\">", "</span></div> \n              "]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n                <div class=\"headerItem\"><span class=\"item1\">", "</span><span class=\"item2\">", "</span></div> \n              "]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n              <h3>Request</h3>\n              ", "\n              <h3>Response</h3>\n              ", "\n            "]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page1\">\n            ", "\n          </div>"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["<div class=\"page page0\">\n            <div class=\"info\"><span class=\"item1\">Url</span><span class=\"item2\">", "</span></div>\n            <div class=\"info\"><span class=\"item1\">Type</span><span class=\"item2\">", "</span></div>\n            <div class=\"info\"><span class=\"item1\">Status</span><span class=\"item2\">", "</span></div>\n          </div>"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  <div class=\"popupWrapper flex\" @click=", ">\n    <div class=\"popup\">\n      <div class=\"header\">\n        <div class=\"row row1\">\n          <div class=\"close\" @click=", ">", "</div>\n          <img src=\"/extLogo/", "\"/>\n          <div class=\"tag\">\n            <div class=\"", "\">", " ", "</div>\n          </div>\n        </div>\n        <div class=\"row row2\">\n          <div \n            class=\"", "\"\n            @click=", "\n          >General</div>\n          <div \n            class=\"", "\"\n            @click=", "\n          >Headers</div>\n          <div \n            class=\"", "\"\n            @click=", "\n          >Resonse</div>\n          <div \n            class=\"", "\"\n            @click=", "\n          >PostData</div>\n        </div>\n      </div>\n      ", "\n    </div>\n  </div>\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"none\" d=\"M0 0h24v24H0V0z\"/><path d=\"M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z\"/></svg>\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path opacity=\".87\" fill=\"none\" d=\"M24 24H0V0h24v24z\"/><path d=\"M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z\"/></svg>\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+var log = console.log;
+log('View the full source code on github: https://github.com/mjarkk/chrome-extension-spy');
+
+var setup = function setup() {
+  fetch('/lastRequests').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    lastReqests = data.reverse();
+    dataLoaded = true;
+    return fetch('/extensionsInfo');
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    extensions = data;
+    r();
+  });
+};
+
+var checkIfJson = function checkIfJson(input) {
+  var returnValue = input;
+
+  try {
+    var testValue = JSON.parse(input);
+    returnValue = testValue;
+  } catch (error) {
+    console.log('can\'t convert input to json');
+  }
+
+  return returnValue;
+};
+
+var nicifyOutput = function nicifyOutput(input) {
+  var testValue = checkIfJson(input);
+
+  if (_typeof(testValue) == 'object') {
+    return JSON.stringify(testValue, null, 2);
+  } else {
+    return input;
+  }
+};
+
+var extensions = {};
+var lastReqests = [];
+var dataLoaded = false;
+
+var extItem = function extItem(pkgId, path) {
+  return path.split('.').reduce(function (acc, val) {
+    return acc && acc[val] ? acc[val] : undefined;
+  }, extensions[pkgId]);
+};
+
+var statusColor = function statusColor(c) {
+  return c >= 400 ? 'red' : 'green';
+};
+
+var moreIcon = Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject());
+var closeIcon = Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject2());
+var empty_pData = {
+  onTab: 0,
+  showPopup: false,
+  hasLoaded: false,
+  firstloadReq: {
+    code: 0,
+    hash: '',
+    pkg: '',
+    type: '',
+    url: ''
+  },
+  extension: {
+    fullPkgURL: '',
+    homepageURL: '',
+    name: '',
+    pkg: '',
+    pkgVersion: '',
+    shortName: ''
+  },
+  req: {}
+};
+var pData = Object.assign({}, empty_pData);
+
+var loadPopupData = function loadPopupData(item) {
+  pData = Object.assign({}, empty_pData);
+  pData.showPopup = true;
+  pData.firstloadReq = item;
+  pData.extension = extensions[item.pkg];
+  r();
+  fetch('/requestInfo/' + item.hash).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    pData.req = data;
+    pData.hasLoaded = true;
+    console.log(pData);
+    r();
+  });
+};
+
+var closePopup = function closePopup(e) {
+  if (e.toElement && e.toElement.classList && e.toElement.classList.value && e.toElement.classList.value.indexOf('popupWrapper') != -1 || typeof e == 'boolean' && e) {
+    pData.showPopup = false;
+    r();
+  }
+};
+
+var popup = function popup() {
+  return !pData.showPopup ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject3()) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject4(), closePopup, function () {
+    return closePopup(true);
+  }, closeIcon, pData.firstloadReq.pkg, statusColor(pData.firstloadReq.code), pData.firstloadReq.type, pData.firstloadReq.code, pData.onTab == 0 ? 'active' : '', function () {
+    pData.onTab = 0;
+    r();
+  }, pData.onTab == 1 ? 'active' : '', function () {
+    pData.onTab = 1;
+    r();
+  }, pData.onTab == 2 ? 'active' : '', function () {
+    pData.onTab = 2;
+    r();
+  }, pData.onTab == 3 ? 'active' : '', function () {
+    pData.onTab = 3;
+    r();
+  }, pData.onTab == 0 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject5(), pData.firstloadReq.url, pData.firstloadReq.type, pData.firstloadReq.code) : pData.onTab == 1 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject6(), pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject7(), Object.keys(pData.req.requestHeaders).map(function (el) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject8(), el, pData.req.requestHeaders[el]);
+  }), Object.keys(pData.req.responseHeaders).map(function (el) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject9(), el, pData.req.responseHeaders[el]);
+  })) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject10())) : pData.onTab == 2 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject11(), pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject12(), pData.req.resData) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject13())) : pData.onTab == 3 ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject14(), pData.firstloadReq.type != 'POST' ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject15()) : pData.hasLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject16(), nicifyOutput(pData.req.postBody)) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject17())) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject18()));
+};
+
+var getList = function getList() {
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject19(), lastReqests.length ? lastReqests.map(function (req) {
+    return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject20(), function () {
+      return loadPopupData(req);
+    }, req.pkg, extItem(req.pkg, 'Small.name'), moreIcon, statusColor(req.code), req.type, req.code, req.url);
+  }) : dataLoaded ? Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject21()) : Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject22()));
+};
+
+var toRender = function toRender() {
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["html"])(_templateObject23(), popup(), getList());
+};
+
+var r = function r() {
+  return Object(lit_html__WEBPACK_IMPORTED_MODULE_0__["render"])(toRender(), document.body);
+};
+
+r();
+setup();
+
+/***/ }),
+
+/***/ "./dev/style/index.styl":
+/*!******************************!*\
+  !*** ./dev/style/index.styl ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/stylus-loader!./index.styl */ "./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./dev/style/index.styl");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./dev/style/index.styl":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/stylus-loader!./dev/style/index.styl ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "* {\n  margin: 0px;\n  padding: 0px;\n  border: 0px solid #000;\n}\nbody {\n  font-family: 'Quicksand', sans-serif;\n  font-weight: 500;\n  font-size: 18px;\n  background-color: #efefef;\n}\n.flex {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.intro-screen {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen h2 {\n  font-weight: 400;\n  padding: 50px 10px 40px 10px;\n}\n.intro-screen .reqests {\n  flex-direction: column;\n  width: 100%;\n}\n.intro-screen .reqests .req {\n  width: 100%;\n  max-width: 700px;\n  box-sizing: border-box;\n  padding: 4px 10px;\n}\n.intro-screen .reqests .req .container {\n  border-radius: 10px;\n  background-color: #fff;\n  overflow: hidden;\n  box-shadow: 0px 6px 40px -10px rgba(0,0,0,0.2);\n  padding: 10px 20px;\n  will-change: transform;\n  transition: transform 0.2s;\n  transform: scale(1, 1);\n  cursor: pointer;\n}\n.intro-screen .reqests .req .container:hover {\n  transform: scale(1.02, 1.02);\n}\n.intro-screen .reqests .req .container .row {\n  justify-content: flex-start;\n  flex-direction: row;\n  flex-wrap: nowrap;\n}\n.intro-screen .reqests .req .container .row .logoAndName {\n  display: flex;\n}\n.intro-screen .reqests .req .container .row img {\n  max-height: 22px;\n  max-width: 22px;\n  min-height: 22px;\n  min-width: 22px;\n  margin-right: 5px;\n}\n.intro-screen .reqests .req .container .row .tag {\n  min-width: 90px;\n}\n.intro-screen .reqests .req .container .row .tag div {\n  border-radius: 4px;\n  padding: 1px 4px;\n  text-align: center;\n  font-size: 15px;\n  background-color: #eee;\n  display: inline-block;\n  font-weight: 600;\n}\n.intro-screen .reqests .req .container .row .tag .green {\n  background-color: #b8ffe5;\n}\n.intro-screen .reqests .req .container .row .tag .red {\n  background-color: #ffd0c6;\n}\n.intro-screen .reqests .req .container .row .url {\n  font-size: 17px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.intro-screen .reqests .req .container .row1 {\n  padding-bottom: 4px;\n  justify-content: space-between;\n}\n.popupWrapper {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  height: 100vh;\n  width: 100vw;\n  box-sizing: border-box;\n  padding: 40px;\n  background-color: rgba(255,255,255,0.6);\n  z-index: 3;\n}\n.popupWrapper .popup {\n  border-radius: 20px;\n  overflow: hidden;\n  background-color: #fff;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 5px 45px -17px rgba(0,0,0,0.4);\n}\n.popupWrapper .popup .header .row {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  align-items: center;\n  justify-content: flex-start;\n}\n.popupWrapper .popup .header .row .close {\n  cursor: pointer;\n  top: 2px;\n  position: relative;\n  padding-right: 5px;\n}\n.popupWrapper .popup .header .row img {\n  height: 40px;\n}\n.popupWrapper .popup .header .row .tag {\n  margin-left: 10px;\n}\n.popupWrapper .popup .header .row .tag div {\n  border-radius: 4px;\n  padding: 1px 4px;\n  text-align: center;\n  font-size: 15px;\n  background-color: #eee;\n  display: inline-block;\n  font-weight: 600;\n}\n.popupWrapper .popup .header .row .tag .green {\n  background-color: #b8ffe5;\n}\n.popupWrapper .popup .header .row .tag .red {\n  background-color: #ffd0c6;\n}\n.popupWrapper .popup .header .row1 {\n  padding: 10px;\n}\n.popupWrapper .popup .header .row2 {\n  border-bottom: 1px solid #ccc;\n  margin-bottom: 2px;\n  padding: 6px;\n}\n.popupWrapper .popup .header .row2 div {\n  background-color: #fff;\n  cursor: pointer;\n  padding: 0px 10px;\n  margin-right: 3px;\n  border: 3px solid #a9fce4;\n  border-radius: 20px;\n  font-size: 17px;\n}\n.popupWrapper .popup .header .row2 .active {\n  background-color: #cdfef0;\n}\n.popupWrapper .popup .page {\n  padding: 10px;\n}\n.popupWrapper .popup .page h3 {\n  padding: 5px 0px;\n}\n.popupWrapper .popup .page .tip {\n  font-size: 15px;\n  padding-bottom: 5px;\n  font-style: italic;\n  color: #0ca09c;\n}\n.popupWrapper .popup .page .info,\n.popupWrapper .popup .page .headerItem {\n  padding-bottom: 3px;\n}\n.popupWrapper .popup .page .info .item1,\n.popupWrapper .popup .page .headerItem .item1 {\n  color: #6e6e6e;\n}\n.popupWrapper .popup .page .info .item1::after,\n.popupWrapper .popup .page .headerItem .item1::after {\n  content: ': ';\n}\n.popupWrapper .popup .page pre {\n  background-color: #efefef;\n  overflow-x: scroll;\n}\n.no_reqs {\n  margin: 10px;\n  padding: 10px;\n  background-color: #fff;\n  text-align: center;\n  border-radius: 10px;\n  box-shadow: 0px 6px 40px -10px rgba(0,0,0,0.2);\n}\n.no_reqs h2 {\n  padding: 0px 0px 5px 0px;\n  margin: 0px;\n  font-weight: 600;\n  color: #02cd69;\n}\n.no_reqs p {\n  padding-bottom: 5px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/directive.js":
+/*!************************************************!*\
+  !*** ./node_modules/lit-html/lib/directive.js ***!
+  \************************************************/
+/*! exports provided: directive, isDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directive", function() { return directive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDirective", function() { return isDirective; });
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const directive = (f) => {
+    f.__litDirective = true;
+    return f;
+};
+const isDirective = (o) => typeof o === 'function' && o.__litDirective === true;
+//# sourceMappingURL=directive.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/dom.js":
+/*!******************************************!*\
+  !*** ./node_modules/lit-html/lib/dom.js ***!
+  \******************************************/
+/*! exports provided: isCEPolyfill, reparentNodes, removeNodes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCEPolyfill", function() { return isCEPolyfill; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reparentNodes", function() { return reparentNodes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeNodes", function() { return removeNodes; });
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const isCEPolyfill = window.customElements !== undefined &&
+    window.customElements.polyfillWrapFlushCallback !== undefined;
+/**
+ * Reparents nodes, starting from `startNode` (inclusive) to `endNode`
+ * (exclusive), into another container (could be the same container), before
+ * `beforeNode`. If `beforeNode` is null, it appends the nodes to the
+ * container.
+ */
+const reparentNodes = (container, start, end = null, before = null) => {
+    let node = start;
+    while (node !== end) {
+        const n = node.nextSibling;
+        container.insertBefore(node, before);
+        node = n;
+    }
+};
+/**
+ * Removes nodes, starting from `startNode` (inclusive) to `endNode`
+ * (exclusive), from `container`.
+ */
+const removeNodes = (container, startNode, endNode = null) => {
+    let node = startNode;
+    while (node !== endNode) {
+        const n = node.nextSibling;
+        container.removeChild(node);
+        node = n;
+    }
+};
+//# sourceMappingURL=dom.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/parts.js":
+/*!********************************************!*\
+  !*** ./node_modules/lit-html/lib/parts.js ***!
+  \********************************************/
+/*! exports provided: noChange, isPrimitive, AttributeCommitter, AttributePart, NodePart, BooleanAttributePart, PropertyCommitter, PropertyPart, EventPart */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noChange", function() { return noChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPrimitive", function() { return isPrimitive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttributeCommitter", function() { return AttributeCommitter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttributePart", function() { return AttributePart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NodePart", function() { return NodePart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooleanAttributePart", function() { return BooleanAttributePart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PropertyCommitter", function() { return PropertyCommitter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PropertyPart", function() { return PropertyPart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventPart", function() { return EventPart; });
+/* harmony import */ var _directive_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./directive.js */ "./node_modules/lit-html/lib/directive.js");
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom.js */ "./node_modules/lit-html/lib/dom.js");
+/* harmony import */ var _template_instance_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template-instance.js */ "./node_modules/lit-html/lib/template-instance.js");
+/* harmony import */ var _template_result_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./template-result.js */ "./node_modules/lit-html/lib/template-result.js");
+/* harmony import */ var _template_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./template.js */ "./node_modules/lit-html/lib/template.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+
+
+
+
+/**
+ * A sentinel value that signals that a value was handled by a directive and
+ * should not be written to the DOM.
+ */
+const noChange = {};
+const isPrimitive = (value) => (value === null ||
+    !(typeof value === 'object' || typeof value === 'function'));
+/**
+ * Sets attribute values for AttributeParts, so that the value is only set once
+ * even if there are multiple parts for an attribute.
+ */
+class AttributeCommitter {
+    constructor(element, name, strings) {
+        this.dirty = true;
+        this.element = element;
+        this.name = name;
+        this.strings = strings;
+        this.parts = [];
+        for (let i = 0; i < strings.length - 1; i++) {
+            this.parts[i] = this._createPart();
+        }
+    }
+    /**
+     * Creates a single part. Override this to create a differnt type of part.
+     */
+    _createPart() {
+        return new AttributePart(this);
+    }
+    _getValue() {
+        const strings = this.strings;
+        const l = strings.length - 1;
+        let text = '';
+        for (let i = 0; i < l; i++) {
+            text += strings[i];
+            const part = this.parts[i];
+            if (part !== undefined) {
+                const v = part.value;
+                if (v != null &&
+                    (Array.isArray(v) || typeof v !== 'string' && v[Symbol.iterator])) {
+                    for (const t of v) {
+                        text += typeof t === 'string' ? t : String(t);
+                    }
+                }
+                else {
+                    text += typeof v === 'string' ? v : String(v);
+                }
+            }
+        }
+        text += strings[l];
+        return text;
+    }
+    commit() {
+        if (this.dirty) {
+            this.dirty = false;
+            this.element.setAttribute(this.name, this._getValue());
+        }
+    }
+}
+class AttributePart {
+    constructor(comitter) {
+        this.value = undefined;
+        this.committer = comitter;
+    }
+    setValue(value) {
+        if (value !== noChange && (!isPrimitive(value) || value !== this.value)) {
+            this.value = value;
+            // If the value is a not a directive, dirty the committer so that it'll
+            // call setAttribute. If the value is a directive, it'll dirty the
+            // committer if it calls setValue().
+            if (!Object(_directive_js__WEBPACK_IMPORTED_MODULE_0__["isDirective"])(value)) {
+                this.committer.dirty = true;
+            }
+        }
+    }
+    commit() {
+        while (Object(_directive_js__WEBPACK_IMPORTED_MODULE_0__["isDirective"])(this.value)) {
+            const directive = this.value;
+            this.value = noChange;
+            directive(this);
+        }
+        if (this.value === noChange) {
+            return;
+        }
+        this.committer.commit();
+    }
+}
+class NodePart {
+    constructor(templateFactory) {
+        this.value = undefined;
+        this._pendingValue = undefined;
+        this.templateFactory = templateFactory;
+    }
+    /**
+     * Inserts this part between `ref` and `ref`'s next sibling. Both `ref` and
+     * its next sibling must be static, unchanging nodes such as those that appear
+     * in a literal section of a template.
+     *
+     * This part must be empty, as its contents are not automatically moved.
+     */
+    insertAfterNode(ref) {
+        this.startNode = ref;
+        this.endNode = ref.nextSibling;
+    }
+    /**
+     * Appends this part into a parent part.
+     *
+     * This part must be empty, as its contents are not automatically moved.
+     */
+    appendIntoPart(part) {
+        part._insert(this.startNode = Object(_template_js__WEBPACK_IMPORTED_MODULE_4__["createMarker"])());
+        part._insert(this.endNode = Object(_template_js__WEBPACK_IMPORTED_MODULE_4__["createMarker"])());
+    }
+    /**
+     * Appends this part after `ref`
+     *
+     * This part must be empty, as its contents are not automatically moved.
+     */
+    insertAfterPart(ref) {
+        ref._insert(this.startNode = Object(_template_js__WEBPACK_IMPORTED_MODULE_4__["createMarker"])());
+        this.endNode = ref.endNode;
+        ref.endNode = this.startNode;
+    }
+    setValue(value) {
+        this._pendingValue = value;
+    }
+    commit() {
+        while (Object(_directive_js__WEBPACK_IMPORTED_MODULE_0__["isDirective"])(this._pendingValue)) {
+            const directive = this._pendingValue;
+            this._pendingValue = noChange;
+            directive(this);
+        }
+        const value = this._pendingValue;
+        if (value === noChange) {
+            return;
+        }
+        if (isPrimitive(value)) {
+            if (value !== this.value) {
+                this._commitText(value);
+            }
+        }
+        else if (value instanceof _template_result_js__WEBPACK_IMPORTED_MODULE_3__["TemplateResult"]) {
+            this._commitTemplateResult(value);
+        }
+        else if (value instanceof Node) {
+            this._commitNode(value);
+        }
+        else if (Array.isArray(value) || value[Symbol.iterator]) {
+            this._commitIterable(value);
+        }
+        else if (value.then !== undefined) {
+            this._commitPromise(value);
+        }
+        else {
+            // Fallback, will render the string representation
+            this._commitText(value);
+        }
+    }
+    _insert(node) {
+        this.endNode.parentNode.insertBefore(node, this.endNode);
+    }
+    _commitNode(value) {
+        if (this.value === value) {
+            return;
+        }
+        this.clear();
+        this._insert(value);
+        this.value = value;
+    }
+    _commitText(value) {
+        const node = this.startNode.nextSibling;
+        value = value == null ? '' : value;
+        if (node === this.endNode.previousSibling &&
+            node.nodeType === Node.TEXT_NODE) {
+            // If we only have a single text node between the markers, we can just
+            // set its value, rather than replacing it.
+            // TODO(justinfagnani): Can we just check if this.value is primitive?
+            node.textContent = value;
+        }
+        else {
+            this._commitNode(document.createTextNode(typeof value === 'string' ? value : String(value)));
+        }
+        this.value = value;
+    }
+    _commitTemplateResult(value) {
+        const template = this.templateFactory(value);
+        let instance;
+        if (this.value && this.value.template === template) {
+            instance = this.value;
+        }
+        else {
+            // Make sure we propagate the template processor from the TemplateResult
+            // so that we use it's syntax extension, etc. The template factory comes
+            // from the render function so that it can control caching.
+            instance =
+                new _template_instance_js__WEBPACK_IMPORTED_MODULE_2__["TemplateInstance"](template, value.processor, this.templateFactory);
+            const fragment = instance._clone();
+            // Since we cloned in the polyfill case, now force an upgrade
+            if (_dom_js__WEBPACK_IMPORTED_MODULE_1__["isCEPolyfill"] && !this.endNode.isConnected) {
+                document.adoptNode(fragment);
+                customElements.upgrade(fragment);
+            }
+            this._commitNode(fragment);
+            this.value = instance;
+        }
+        instance.update(value.values);
+    }
+    _commitIterable(value) {
+        // For an Iterable, we create a new InstancePart per item, then set its
+        // value to the item. This is a little bit of overhead for every item in
+        // an Iterable, but it lets us recurse easily and efficiently update Arrays
+        // of TemplateResults that will be commonly returned from expressions like:
+        // array.map((i) => html`${i}`), by reusing existing TemplateInstances.
+        // If _value is an array, then the previous render was of an
+        // iterable and _value will contain the NodeParts from the previous
+        // render. If _value is not an array, clear this part and make a new
+        // array for NodeParts.
+        if (!Array.isArray(this.value)) {
+            this.value = [];
+            this.clear();
+        }
+        // Lets us keep track of how many items we stamped so we can clear leftover
+        // items from a previous render
+        const itemParts = this.value;
+        let partIndex = 0;
+        let itemPart;
+        for (const item of value) {
+            // Try to reuse an existing part
+            itemPart = itemParts[partIndex];
+            // If no existing part, create a new one
+            if (itemPart === undefined) {
+                itemPart = new NodePart(this.templateFactory);
+                itemParts.push(itemPart);
+                if (partIndex === 0) {
+                    itemPart.appendIntoPart(this);
+                }
+                else {
+                    itemPart.insertAfterPart(itemParts[partIndex - 1]);
+                }
+            }
+            itemPart.setValue(item);
+            itemPart.commit();
+            partIndex++;
+        }
+        if (partIndex < itemParts.length) {
+            // Truncate the parts array so _value reflects the current state
+            itemParts.length = partIndex;
+            this.clear(itemPart && itemPart.endNode);
+        }
+    }
+    _commitPromise(value) {
+        this.value = value;
+        value.then((v) => {
+            if (this.value === value) {
+                this.setValue(v);
+                this.commit();
+            }
+        });
+    }
+    clear(startNode = this.startNode) {
+        Object(_dom_js__WEBPACK_IMPORTED_MODULE_1__["removeNodes"])(this.startNode.parentNode, startNode.nextSibling, this.endNode);
+    }
+}
+/**
+ * Implements a boolean attribute, roughly as defined in the HTML
+ * specification.
+ *
+ * If the value is truthy, then the attribute is present with a value of
+ * ''. If the value is falsey, the attribute is removed.
+ */
+class BooleanAttributePart {
+    constructor(element, name, strings) {
+        this.value = undefined;
+        this._pendingValue = undefined;
+        if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
+            throw new Error('Boolean attributes can only contain a single expression');
+        }
+        this.element = element;
+        this.name = name;
+        this.strings = strings;
+    }
+    setValue(value) {
+        this._pendingValue = value;
+    }
+    commit() {
+        while (Object(_directive_js__WEBPACK_IMPORTED_MODULE_0__["isDirective"])(this._pendingValue)) {
+            const directive = this._pendingValue;
+            this._pendingValue = noChange;
+            directive(this);
+        }
+        if (this._pendingValue === noChange) {
+            return;
+        }
+        const value = !!this._pendingValue;
+        if (this.value !== value) {
+            if (value) {
+                this.element.setAttribute(this.name, '');
+            }
+            else {
+                this.element.removeAttribute(this.name);
+            }
+        }
+        this.value = value;
+        this._pendingValue = noChange;
+    }
+}
+/**
+ * Sets attribute values for PropertyParts, so that the value is only set once
+ * even if there are multiple parts for a property.
+ *
+ * If an expression controls the whole property value, then the value is simply
+ * assigned to the property under control. If there are string literals or
+ * multiple expressions, then the strings are expressions are interpolated into
+ * a string first.
+ */
+class PropertyCommitter extends AttributeCommitter {
+    constructor(element, name, strings) {
+        super(element, name, strings);
+        this.single =
+            (strings.length === 2 && strings[0] === '' && strings[1] === '');
+    }
+    _createPart() {
+        return new PropertyPart(this);
+    }
+    _getValue() {
+        if (this.single) {
+            return this.parts[0].value;
+        }
+        return super._getValue();
+    }
+    commit() {
+        if (this.dirty) {
+            this.dirty = false;
+            this.element[this.name] = this._getValue();
+        }
+    }
+}
+class PropertyPart extends AttributePart {
+}
+class EventPart {
+    constructor(element, eventName) {
+        this.value = undefined;
+        this._pendingValue = undefined;
+        this.element = element;
+        this.eventName = eventName;
+    }
+    setValue(value) {
+        this._pendingValue = value;
+    }
+    commit() {
+        while (Object(_directive_js__WEBPACK_IMPORTED_MODULE_0__["isDirective"])(this._pendingValue)) {
+            const directive = this._pendingValue;
+            this._pendingValue = noChange;
+            directive(this);
+        }
+        if (this._pendingValue === noChange) {
+            return;
+        }
+        if ((this._pendingValue == null) !== (this.value == null)) {
+            if (this._pendingValue == null) {
+                this.element.removeEventListener(this.eventName, this);
+            }
+            else {
+                this.element.addEventListener(this.eventName, this);
+            }
+        }
+        this.value = this._pendingValue;
+        this._pendingValue = noChange;
+    }
+    handleEvent(event) {
+        if (typeof this.value === 'function') {
+            this.value.call(this.element, event);
+        }
+        else if (typeof this.value.handleEvent === 'function') {
+            this.value.handleEvent(event);
+        }
+    }
+}
+//# sourceMappingURL=parts.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/render.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lit-html/lib/render.js ***!
+  \*********************************************/
+/*! exports provided: render */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom.js */ "./node_modules/lit-html/lib/dom.js");
+/* harmony import */ var _template_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-factory.js */ "./node_modules/lit-html/lib/template-factory.js");
+/* harmony import */ var _template_instance_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template-instance.js */ "./node_modules/lit-html/lib/template-instance.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+
+
+/**
+ * Renders a template to a container.
+ *
+ * To update a container with new values, reevaluate the template literal and
+ * call `render` with the new result.
+ *
+ * @param result a TemplateResult created by evaluating a template tag like
+ *     `html` or `svg`.
+ * @param container A DOM parent to render to. The entire contents are either
+ *     replaced, or efficiently updated if the same result type was previous
+ *     rendered there.
+ * @param templateFactory a function to create a Template or retreive one from
+ *     cache.
+ */
+function render(result, container, templateFactory = _template_factory_js__WEBPACK_IMPORTED_MODULE_1__["templateFactory"]) {
+    const template = templateFactory(result);
+    let instance = container.__templateInstance;
+    // Repeat render, just call update()
+    if (instance !== undefined && instance.template === template &&
+        instance.processor === result.processor) {
+        instance.update(result.values);
+        return;
+    }
+    // First render, create a new TemplateInstance and append it
+    instance = new _template_instance_js__WEBPACK_IMPORTED_MODULE_2__["TemplateInstance"](template, result.processor, templateFactory);
+    container.__templateInstance = instance;
+    const fragment = instance._clone();
+    Object(_dom_js__WEBPACK_IMPORTED_MODULE_0__["removeNodes"])(container, container.firstChild);
+    // Since we cloned in the polyfill case, now force an upgrade
+    if (_dom_js__WEBPACK_IMPORTED_MODULE_0__["isCEPolyfill"] && !container.isConnected) {
+        document.adoptNode(fragment);
+        customElements.upgrade(fragment);
+    }
+    container.appendChild(fragment);
+    instance.update(result.values);
+}
+//# sourceMappingURL=render.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/template-factory.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/lit-html/lib/template-factory.js ***!
+  \*******************************************************/
+/*! exports provided: templateFactory, templateCaches */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "templateFactory", function() { return templateFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "templateCaches", function() { return templateCaches; });
+/* harmony import */ var _template_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./template.js */ "./node_modules/lit-html/lib/template.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * The default TemplateFactory which caches Templates keyed on
+ * result.type and result.strings.
+ */
+function templateFactory(result) {
+    let templateCache = templateCaches.get(result.type);
+    if (templateCache === undefined) {
+        templateCache = new Map();
+        templateCaches.set(result.type, templateCache);
+    }
+    let template = templateCache.get(result.strings);
+    if (template === undefined) {
+        template = new _template_js__WEBPACK_IMPORTED_MODULE_0__["Template"](result, result.getTemplateElement());
+        templateCache.set(result.strings, template);
+    }
+    return template;
+}
+// The first argument to JS template tags retain identity across multiple
+// calls to a tag for the same literal, so we can cache work done per literal
+// in a Map.
+const templateCaches = new Map();
+//# sourceMappingURL=template-factory.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/template-instance.js":
+/*!********************************************************!*\
+  !*** ./node_modules/lit-html/lib/template-instance.js ***!
+  \********************************************************/
+/*! exports provided: TemplateInstance */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateInstance", function() { return TemplateInstance; });
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom.js */ "./node_modules/lit-html/lib/dom.js");
+/* harmony import */ var _template_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template.js */ "./node_modules/lit-html/lib/template.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+
+/**
+ * An instance of a `Template` that can be attached to the DOM and updated
+ * with new values.
+ */
+class TemplateInstance {
+    constructor(template, processor, getTemplate) {
+        this._parts = [];
+        this.template = template;
+        this.processor = processor;
+        this._getTemplate = getTemplate;
+    }
+    update(values) {
+        let i = 0;
+        for (const part of this._parts) {
+            if (part !== undefined) {
+                part.setValue(values[i]);
+            }
+            i++;
+        }
+        for (const part of this._parts) {
+            if (part !== undefined) {
+                part.commit();
+            }
+        }
+    }
+    _clone() {
+        // When using the Custom Elements polyfill, clone the node, rather than
+        // importing it, to keep the fragment in the template's document. This
+        // leaves the fragment inert so custom elements won't upgrade and
+        // potentially modify their contents by creating a polyfilled ShadowRoot
+        // while we traverse the tree.
+        const fragment = _dom_js__WEBPACK_IMPORTED_MODULE_0__["isCEPolyfill"] ?
+            this.template.element.content.cloneNode(true) :
+            document.importNode(this.template.element.content, true);
+        const parts = this.template.parts;
+        let partIndex = 0;
+        let nodeIndex = 0;
+        const _prepareInstance = (fragment) => {
+            // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be
+            // null
+            const walker = document.createTreeWalker(fragment, 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */, null, false);
+            let node = walker.nextNode();
+            // Loop through all the nodes and parts of a template
+            while (partIndex < parts.length && node !== null) {
+                const part = parts[partIndex];
+                // Consecutive Parts may have the same node index, in the case of
+                // multiple bound attributes on an element. So each iteration we either
+                // increment the nodeIndex, if we aren't on a node with a part, or the
+                // partIndex if we are. By not incrementing the nodeIndex when we find a
+                // part, we allow for the next part to be associated with the current
+                // node if neccessasry.
+                if (!Object(_template_js__WEBPACK_IMPORTED_MODULE_1__["isTemplatePartActive"])(part)) {
+                    this._parts.push(undefined);
+                    partIndex++;
+                }
+                else if (nodeIndex === part.index) {
+                    if (part.type === 'node') {
+                        const part = this.processor.handleTextExpression(this._getTemplate);
+                        part.insertAfterNode(node);
+                        this._parts.push(part);
+                    }
+                    else {
+                        this._parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings));
+                    }
+                    partIndex++;
+                }
+                else {
+                    nodeIndex++;
+                    if (node.nodeName === 'TEMPLATE') {
+                        _prepareInstance(node.content);
+                    }
+                    node = walker.nextNode();
+                }
+            }
+        };
+        _prepareInstance(fragment);
+        return fragment;
+    }
+}
+//# sourceMappingURL=template-instance.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/template-processor.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/lit-html/lib/template-processor.js ***!
+  \*********************************************************/
+/*! exports provided: TemplateProcessor, defaultTemplateProcessor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateProcessor", function() { return TemplateProcessor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultTemplateProcessor", function() { return defaultTemplateProcessor; });
+/* harmony import */ var _parts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parts.js */ "./node_modules/lit-html/lib/parts.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * Creates Parts when a template is instantiated.
+ */
+class TemplateProcessor {
+    /**
+     * Create parts for an attribute-position binding, given the event, attribute
+     * name, and string literals.
+     *
+     * @param element The element containing the binding
+     * @param name  The attribute name
+     * @param strings The string literals. There are always at least two strings,
+     *   event for fully-controlled bindings with a single expression.
+     */
+    handleAttributeExpressions(element, name, strings) {
+        const prefix = name[0];
+        if (prefix === '.') {
+            const comitter = new _parts_js__WEBPACK_IMPORTED_MODULE_0__["PropertyCommitter"](element, name.slice(1), strings);
+            return comitter.parts;
+        }
+        if (prefix === '@') {
+            return [new _parts_js__WEBPACK_IMPORTED_MODULE_0__["EventPart"](element, name.slice(1))];
+        }
+        if (prefix === '?') {
+            return [new _parts_js__WEBPACK_IMPORTED_MODULE_0__["BooleanAttributePart"](element, name.slice(1), strings)];
+        }
+        const comitter = new _parts_js__WEBPACK_IMPORTED_MODULE_0__["AttributeCommitter"](element, name, strings);
+        return comitter.parts;
+    }
+    /**
+     * Create parts for a text-position binding.
+     * @param templateFactory
+     */
+    handleTextExpression(templateFactory) {
+        return new _parts_js__WEBPACK_IMPORTED_MODULE_0__["NodePart"](templateFactory);
+    }
+}
+const defaultTemplateProcessor = new TemplateProcessor();
+//# sourceMappingURL=template-processor.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/template-result.js":
+/*!******************************************************!*\
+  !*** ./node_modules/lit-html/lib/template-result.js ***!
+  \******************************************************/
+/*! exports provided: TemplateResult, SVGTemplateResult */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateResult", function() { return TemplateResult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SVGTemplateResult", function() { return SVGTemplateResult; });
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom.js */ "./node_modules/lit-html/lib/dom.js");
+/* harmony import */ var _template_processor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-processor.js */ "./node_modules/lit-html/lib/template-processor.js");
+/* harmony import */ var _template_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template.js */ "./node_modules/lit-html/lib/template.js");
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+
+
+/**
+ * The return type of `html`, which holds a Template and the values from
+ * interpolated expressions.
+ */
+class TemplateResult {
+    constructor(strings, values, type, processor = _template_processor_js__WEBPACK_IMPORTED_MODULE_1__["defaultTemplateProcessor"]) {
+        this.strings = strings;
+        this.values = values;
+        this.type = type;
+        this.processor = processor;
+    }
+    /**
+     * Returns a string of HTML used to create a <template> element.
+     */
+    getHTML() {
+        const l = this.strings.length - 1;
+        let html = '';
+        let isTextBinding = true;
+        for (let i = 0; i < l; i++) {
+            const s = this.strings[i];
+            html += s;
+            const close = s.lastIndexOf('>');
+            // We're in a text position if the previous string closed its last tag, an
+            // attribute position if the string opened an unclosed tag, and unchanged
+            // if the string had no brackets at all:
+            //
+            // "...>...": text position. open === -1, close > -1
+            // "...<...": attribute position. open > -1
+            // "...": no change. open === -1, close === -1
+            isTextBinding =
+                (close > -1 || isTextBinding) && s.indexOf('<', close + 1) === -1;
+            if (!isTextBinding && _template_js__WEBPACK_IMPORTED_MODULE_2__["rewritesStyleAttribute"]) {
+                html = html.replace(_template_js__WEBPACK_IMPORTED_MODULE_2__["lastAttributeNameRegex"], (match, p1, p2, p3) => {
+                    return (p2 === 'style') ? `${p1}style$${p3}` : match;
+                });
+            }
+            html += isTextBinding ? _template_js__WEBPACK_IMPORTED_MODULE_2__["nodeMarker"] : _template_js__WEBPACK_IMPORTED_MODULE_2__["marker"];
+        }
+        html += this.strings[l];
+        return html;
+    }
+    getTemplateElement() {
+        const template = document.createElement('template');
+        template.innerHTML = this.getHTML();
+        return template;
+    }
+}
+/**
+ * A TemplateResult for SVG fragments.
+ *
+ * This class wraps HTMl in an <svg> tag in order to parse its contents in the
+ * SVG namespace, then modifies the template to remove the <svg> tag so that
+ * clones only container the original fragment.
+ */
+class SVGTemplateResult extends TemplateResult {
+    getHTML() {
+        return `<svg>${super.getHTML()}</svg>`;
+    }
+    getTemplateElement() {
+        const template = super.getTemplateElement();
+        const content = template.content;
+        const svgElement = content.firstChild;
+        content.removeChild(svgElement);
+        Object(_dom_js__WEBPACK_IMPORTED_MODULE_0__["reparentNodes"])(content, svgElement.firstChild);
+        return template;
+    }
+}
+//# sourceMappingURL=template-result.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lib/template.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lit-html/lib/template.js ***!
+  \***********************************************/
+/*! exports provided: marker, nodeMarker, markerRegex, rewritesStyleAttribute, Template, isTemplatePartActive, createMarker, lastAttributeNameRegex */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marker", function() { return marker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nodeMarker", function() { return nodeMarker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "markerRegex", function() { return markerRegex; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rewritesStyleAttribute", function() { return rewritesStyleAttribute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Template", function() { return Template; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTemplatePartActive", function() { return isTemplatePartActive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createMarker", function() { return createMarker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lastAttributeNameRegex", function() { return lastAttributeNameRegex; });
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+/**
+ * An expression marker with embedded unique key to avoid collision with
+ * possible text in templates.
+ */
+const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
+/**
+ * An expression marker used text-positions, not attribute positions,
+ * in template.
+ */
+const nodeMarker = `<!--${marker}-->`;
+const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
+const rewritesStyleAttribute = (() => {
+    const el = document.createElement('div');
+    el.setAttribute('style', '{{bad value}}');
+    return el.getAttribute('style') !== '{{bad value}}';
+})();
+/**
+ * An updateable Template that tracks the location of dynamic parts.
+ */
+class Template {
+    constructor(result, element) {
+        this.parts = [];
+        this.element = element;
+        let index = -1;
+        let partIndex = 0;
+        const nodesToRemove = [];
+        const _prepareTemplate = (template) => {
+            const content = template.content;
+            // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be
+            // null
+            const walker = document.createTreeWalker(content, 133 /* NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT |
+                   NodeFilter.SHOW_TEXT */, null, false);
+            // The actual previous node, accounting for removals: if a node is removed
+            // it will never be the previousNode.
+            let previousNode;
+            // Used to set previousNode at the top of the loop.
+            let currentNode;
+            while (walker.nextNode()) {
+                index++;
+                previousNode = currentNode;
+                const node = currentNode = walker.currentNode;
+                if (node.nodeType === 1 /* Node.ELEMENT_NODE */) {
+                    if (node.hasAttributes()) {
+                        const attributes = node.attributes;
+                        // Per
+                        // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
+                        // attributes are not guaranteed to be returned in document order.
+                        // In particular, Edge/IE can return them out of order, so we cannot
+                        // assume a correspondance between part index and attribute index.
+                        let count = 0;
+                        for (let i = 0; i < attributes.length; i++) {
+                            if (attributes[i].value.indexOf(marker) >= 0) {
+                                count++;
+                            }
+                        }
+                        while (count-- > 0) {
+                            // Get the template literal section leading up to the first
+                            // expression in this attribute
+                            const stringForPart = result.strings[partIndex];
+                            // Find the attribute name
+                            const name = lastAttributeNameRegex.exec(stringForPart)[2];
+                            // Find the corresponding attribute
+                            // If the attribute name contains special characters, lower-case
+                            // it so that on XML nodes with case-sensitive getAttribute() we
+                            // can still find the attribute, which will have been lower-cased
+                            // by the parser.
+                            //
+                            // If the attribute name doesn't contain special character, it's
+                            // important to _not_ lower-case it, in case the name is
+                            // case-sensitive, like with XML attributes like "viewBox".
+                            const attributeLookupName = (rewritesStyleAttribute && name === 'style') ?
+                                'style$' :
+                                /^[a-zA-Z-]*$/.test(name) ? name : name.toLowerCase();
+                            const attributeValue = node.getAttribute(attributeLookupName);
+                            const strings = attributeValue.split(markerRegex);
+                            this.parts.push({ type: 'attribute', index, name, strings });
+                            node.removeAttribute(attributeLookupName);
+                            partIndex += strings.length - 1;
+                        }
+                    }
+                    if (node.tagName === 'TEMPLATE') {
+                        _prepareTemplate(node);
+                    }
+                }
+                else if (node.nodeType === 3 /* Node.TEXT_NODE */) {
+                    const nodeValue = node.nodeValue;
+                    if (nodeValue.indexOf(marker) < 0) {
+                        continue;
+                    }
+                    const parent = node.parentNode;
+                    const strings = nodeValue.split(markerRegex);
+                    const lastIndex = strings.length - 1;
+                    // We have a part for each match found
+                    partIndex += lastIndex;
+                    // Generate a new text node for each literal section
+                    // These nodes are also used as the markers for node parts
+                    for (let i = 0; i < lastIndex; i++) {
+                        parent.insertBefore((strings[i] === '') ? createMarker() :
+                            document.createTextNode(strings[i]), node);
+                        this.parts.push({ type: 'node', index: index++ });
+                    }
+                    parent.insertBefore(strings[lastIndex] === '' ?
+                        createMarker() :
+                        document.createTextNode(strings[lastIndex]), node);
+                    nodesToRemove.push(node);
+                }
+                else if (node.nodeType === 8 /* Node.COMMENT_NODE */) {
+                    if (node.nodeValue === marker) {
+                        const parent = node.parentNode;
+                        // Add a new marker node to be the startNode of the Part if any of
+                        // the following are true:
+                        //  * We don't have a previousSibling
+                        //  * previousSibling is being removed (thus it's not the
+                        //    `previousNode`)
+                        //  * previousSibling is not a Text node
+                        //
+                        // TODO(justinfagnani): We should be able to use the previousNode
+                        // here as the marker node and reduce the number of extra nodes we
+                        // add to a template. See
+                        // https://github.com/PolymerLabs/lit-html/issues/147
+                        const previousSibling = node.previousSibling;
+                        if (previousSibling === null || previousSibling !== previousNode ||
+                            previousSibling.nodeType !== Node.TEXT_NODE) {
+                            parent.insertBefore(createMarker(), node);
+                        }
+                        else {
+                            index--;
+                        }
+                        this.parts.push({ type: 'node', index: index++ });
+                        nodesToRemove.push(node);
+                        // If we don't have a nextSibling add a marker node.
+                        // We don't have to check if the next node is going to be removed,
+                        // because that node will induce a new marker if so.
+                        if (node.nextSibling === null) {
+                            parent.insertBefore(createMarker(), node);
+                        }
+                        else {
+                            index--;
+                        }
+                        currentNode = previousNode;
+                        partIndex++;
+                    }
+                    else {
+                        let i = -1;
+                        while ((i = node.nodeValue.indexOf(marker, i + 1)) !== -1) {
+                            // Comment node has a binding marker inside, make an inactive part
+                            // The binding won't work, but subsequent bindings will
+                            // TODO (justinfagnani): consider whether it's even worth it to
+                            // make bindings in comments work
+                            this.parts.push({ type: 'node', index: -1 });
+                        }
+                    }
+                }
+            }
+        };
+        _prepareTemplate(element);
+        // Remove text binding nodes after the walk to not disturb the TreeWalker
+        for (const n of nodesToRemove) {
+            n.parentNode.removeChild(n);
+        }
+    }
+}
+const isTemplatePartActive = (part) => part.index !== -1;
+// Allows `document.createComment('')` to be renamed for a
+// small manual size-savings.
+const createMarker = () => document.createComment('');
+/**
+ * This regex extracts the attribute name preceding an attribute-position
+ * expression. It does this by matching the syntax allowed for attributes
+ * against the string literal directly preceding the expression, assuming that
+ * the expression is in an attribute-value position.
+ *
+ * See attributes in the HTML spec:
+ * https://www.w3.org/TR/html5/syntax.html#attributes-0
+ *
+ * "\0-\x1F\x7F-\x9F" are Unicode control characters
+ *
+ * " \x09\x0a\x0c\x0d" are HTML space characters:
+ * https://www.w3.org/TR/html5/infrastructure.html#space-character
+ *
+ * So an attribute is:
+ *  * The name: any character except a control character, space character, ('),
+ *    ("), ">", "=", or "/"
+ *  * Followed by zero or more space characters
+ *  * Followed by "="
+ *  * Followed by zero or more space characters
+ *  * Followed by:
+ *    * Any character except space, ('), ("), "<", ">", "=", (`), or
+ *    * (") then any non-("), or
+ *    * (') then any non-(')
+ */
+const lastAttributeNameRegex = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F \x09\x0a\x0c\x0d"'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+//# sourceMappingURL=template.js.map
+
+/***/ }),
+
+/***/ "./node_modules/lit-html/lit-html.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lit-html/lit-html.js ***!
+  \*******************************************/
+/*! exports provided: html, svg, TemplateResult, SVGTemplateResult, marker, nodeMarker, markerRegex, rewritesStyleAttribute, Template, isTemplatePartActive, createMarker, lastAttributeNameRegex, TemplateProcessor, defaultTemplateProcessor, TemplateInstance, noChange, isPrimitive, AttributeCommitter, AttributePart, NodePart, BooleanAttributePart, PropertyCommitter, PropertyPart, EventPart, isCEPolyfill, reparentNodes, removeNodes, directive, isDirective, render, templateFactory, templateCaches */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "html", function() { return html; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "svg", function() { return svg; });
+/* harmony import */ var _lib_template_result_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/template-result.js */ "./node_modules/lit-html/lib/template-result.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateResult", function() { return _lib_template_result_js__WEBPACK_IMPORTED_MODULE_0__["TemplateResult"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SVGTemplateResult", function() { return _lib_template_result_js__WEBPACK_IMPORTED_MODULE_0__["SVGTemplateResult"]; });
+
+/* harmony import */ var _lib_template_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/template.js */ "./node_modules/lit-html/lib/template.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "marker", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["marker"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "nodeMarker", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["nodeMarker"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "markerRegex", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["markerRegex"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rewritesStyleAttribute", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["rewritesStyleAttribute"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Template", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["Template"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isTemplatePartActive", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["isTemplatePartActive"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createMarker", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["createMarker"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lastAttributeNameRegex", function() { return _lib_template_js__WEBPACK_IMPORTED_MODULE_1__["lastAttributeNameRegex"]; });
+
+/* harmony import */ var _lib_template_processor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/template-processor.js */ "./node_modules/lit-html/lib/template-processor.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateProcessor", function() { return _lib_template_processor_js__WEBPACK_IMPORTED_MODULE_2__["TemplateProcessor"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultTemplateProcessor", function() { return _lib_template_processor_js__WEBPACK_IMPORTED_MODULE_2__["defaultTemplateProcessor"]; });
+
+/* harmony import */ var _lib_template_instance_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/template-instance.js */ "./node_modules/lit-html/lib/template-instance.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateInstance", function() { return _lib_template_instance_js__WEBPACK_IMPORTED_MODULE_3__["TemplateInstance"]; });
+
+/* harmony import */ var _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/parts.js */ "./node_modules/lit-html/lib/parts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "noChange", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["noChange"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isPrimitive", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["isPrimitive"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttributeCommitter", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["AttributeCommitter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttributePart", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["AttributePart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NodePart", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["NodePart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanAttributePart", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["BooleanAttributePart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PropertyCommitter", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["PropertyCommitter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PropertyPart", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["PropertyPart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EventPart", function() { return _lib_parts_js__WEBPACK_IMPORTED_MODULE_4__["EventPart"]; });
+
+/* harmony import */ var _lib_dom_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/dom.js */ "./node_modules/lit-html/lib/dom.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isCEPolyfill", function() { return _lib_dom_js__WEBPACK_IMPORTED_MODULE_5__["isCEPolyfill"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reparentNodes", function() { return _lib_dom_js__WEBPACK_IMPORTED_MODULE_5__["reparentNodes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeNodes", function() { return _lib_dom_js__WEBPACK_IMPORTED_MODULE_5__["removeNodes"]; });
+
+/* harmony import */ var _lib_directive_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/directive.js */ "./node_modules/lit-html/lib/directive.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "directive", function() { return _lib_directive_js__WEBPACK_IMPORTED_MODULE_6__["directive"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isDirective", function() { return _lib_directive_js__WEBPACK_IMPORTED_MODULE_6__["isDirective"]; });
+
+/* harmony import */ var _lib_render_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lib/render.js */ "./node_modules/lit-html/lib/render.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _lib_render_js__WEBPACK_IMPORTED_MODULE_7__["render"]; });
+
+/* harmony import */ var _lib_template_factory_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lib/template-factory.js */ "./node_modules/lit-html/lib/template-factory.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "templateFactory", function() { return _lib_template_factory_js__WEBPACK_IMPORTED_MODULE_8__["templateFactory"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "templateCaches", function() { return _lib_template_factory_js__WEBPACK_IMPORTED_MODULE_8__["templateCaches"]; });
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+
+
+
+
+
+
+
+
+
+/**
+ * Interprets a template literal as an HTML template that can efficiently
+ * render to and update a container.
+ */
+const html = (strings, ...values) => new _lib_template_result_js__WEBPACK_IMPORTED_MODULE_0__["TemplateResult"](strings, values, 'html');
+/**
+ * Interprets a template literal as an SVG template that can efficiently
+ * render to and update a container.
+ */
+const svg = (strings, ...values) => new _lib_template_result_js__WEBPACK_IMPORTED_MODULE_0__["SVGTemplateResult"](strings, values, 'svg');
+//# sourceMappingURL=lit-html.js.map
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target) {
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertInto + " " + options.insertAt.before);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=bundel.js.map

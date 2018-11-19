@@ -10,6 +10,7 @@ const setup = () => {
   .then(r => r.json())
   .then(data => {
     lastReqests = data.reverse()
+    dataLoaded = true
     return fetch('/extensionsInfo')
   })
   .then(r => r.json())
@@ -41,6 +42,7 @@ const nicifyOutput = input => {
 
 let extensions = {}
 let lastReqests = []
+let dataLoaded = false
 
 const extItem = (pkgId, path) => 
   path
@@ -189,7 +191,7 @@ const popup = () => !pData.showPopup ? html`` : html`
 `
 
 const getList = () => html`
-  ${lastReqests.length 
+  ${lastReqests.length
     ? lastReqests.map(req => html`
         <div class="req">
           <div class="container" @click=${() => loadPopupData(req)}>
@@ -207,7 +209,14 @@ const getList = () => html`
           </div>
         </div>
       `)
-    : html`<div class="loading">loading data..</div>`}
+    : dataLoaded
+      ? html`<div class="no_reqs">
+          <h2>Great!</h2>
+          <p>Your extensions didn't make any network requests</p>
+          <p>Try to visit some sites and see if that changes anything</p>
+        </div>`
+      : html`<div class="loading">loading data..</div>`
+  }
 `
 
 const toRender = () => html`
