@@ -14,14 +14,14 @@ import (
 	"github.com/mjarkk/chrome-extension-spy/types"
 )
 
-func proxyHandeler(c *gin.Context, reqType string) {
-
+func proxyHandeler(c *gin.Context, reqType string, newReq chan types.SmallRequest) {
 	var dataToSave types.Request
 	defer func() {
 		hashData := fmt.Sprintf("%v", dataToSave)
 		hashData += string(time.Now().Unix())
 		dataToSave.Hash = fmt.Sprintf("%x", sha1.Sum([]byte(hashData)))
 		globalData = append(globalData, dataToSave)
+		newReq <- mkSmallReq(dataToSave)
 	}()
 
 	dataToSave.Type = reqType
@@ -84,12 +84,4 @@ func proxyHandeler(c *gin.Context, reqType string) {
 	dataToSave.StatusCode = rs.StatusCode
 
 	c.Data(rs.StatusCode, rs.Header.Get("Content-Type"), body)
-}
-
-func proxyHandelerPost(c *gin.Context) {
-	proxyHandeler(c, "POST")
-}
-
-func proxyHandelerGet(c *gin.Context) {
-	proxyHandeler(c, "GET")
 }
