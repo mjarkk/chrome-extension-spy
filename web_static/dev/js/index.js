@@ -161,13 +161,13 @@ const popup = () => !pData.showPopup ? html`` : html`
           html`<div class="page page1">
             ${pData.hasLoaded ? html`
               <h3>Request</h3>
-              ${Object.keys(pData.req.requestHeaders).map(el => html`
+              ${pData.req.requestHeaders ? Object.keys(pData.req.requestHeaders).map(el => html`
                 <div class="headerItem"><span class="item1">${el}</span><span class="item2">${pData.req.requestHeaders[el]}</span></div> 
-              `)}
+              `) : html`<div class="error">The server had an error handling the response headers</div>`}
               <h3>Response</h3>
-              ${Object.keys(pData.req.responseHeaders).map(el => html`
+              ${pData.req.responseHeaders ? Object.keys(pData.req.responseHeaders).map(el => html`
                 <div class="headerItem"><span class="item1">${el}</span><span class="item2">${pData.req.responseHeaders[el]}</span></div> 
-              `)}
+              `) : html`<div class="error">The server had an error handling the response headers</div>`}
             ` : html`Loading data...`}
           </div>`
         : pData.onTab == 2 ?
