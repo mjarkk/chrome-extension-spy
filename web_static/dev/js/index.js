@@ -16,6 +16,7 @@ const setup = () => {
   .then(r => r.json())
   .then(data => {
     extensions = data
+    startSocketConection()
     r()
   })
 }
@@ -26,7 +27,7 @@ const checkIfJson = input => {
     const testValue = JSON.parse(input)
     returnValue = testValue
   } catch (error) {
-    console.log('can\'t convert input to json')
+    log('can\'t convert input to json')
   }
   return returnValue
 }
@@ -97,9 +98,20 @@ const loadPopupData = item => {
   .then(data => {
     pData.req = data
     pData.hasLoaded = true
-    console.log(pData)
     r()
   })
+}
+
+const startSocketConection = () => {
+  const url = `ws://${location.host}/ws`
+  const ws = new WebSocket(url)
+  ws.onmessage = msg => {
+    const output = checkIfJson(msg.data)
+    if (typeof output == 'object') {
+      lastReqests.unshift(output)
+      r()
+    }
+  }
 }
 
 const closePopup = e => {

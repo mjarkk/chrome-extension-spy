@@ -107,6 +107,12 @@
 			"revisionTime": "2017-07-30T05:02:35Z"
 		},
 		{
+			"checksumSHA1": "imPi2JDKAJPo4w4tiJWviYRKXOg=",
+			"path": "gopkg.in/olahol/melody.v1",
+			"revision": "d521390733761fe1db13de575c253afd5c743085",
+			"revisionTime": "2017-05-18T10:55:55Z"
+		},
+		{
 			"checksumSHA1": "ZSWoOPUNRr5+3dhkLK3C4cZAQPk=",
 			"path": "gopkg.in/yaml.v2",
 			"revision": "5420a8b6744d3b0345ab293f6fcba19c978f1183",
