@@ -173,8 +173,11 @@ const popup = () => !pData.showPopup ? html`` : html`
         : pData.onTab == 2 ?
           html`<div class="page page2">
             ${pData.hasLoaded ? html`
+              <h3>Text data</h3>
               <div class="tip">If the data look wired the response data is probebly not text</div>
-              <pre>${ pData.req.resData }</pre>
+              <pre>${ nicifyOutput(pData.req.resData) }</pre>
+              <h3>Byte output</h3>
+              <pre>${ pData.req.resRawData }</pre>
             ` : html`Loading data...`}
           </div>`
         : pData.onTab == 3 ?
