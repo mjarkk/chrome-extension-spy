@@ -19,8 +19,9 @@ type Request struct {
 	ResponseHeaders map[string]string `json:"responseHeaders"` // response headers
 	PostBody        string            `json:"postBody"`        // post request body
 	ResData         string            `json:"resData"`         // response data
-	ResData64       string            `json:"resData64"`       // raw response in base64
+	ResRawData      []byte            `json:"resRawData"`      // raw response
 	Hash            string            `json:"hash"`            // the request hash
+	ProxyErrors     []string          `json:"proxyErrors"`     // if the proxy had any errors they will show up here
 }
 
 // FullAndSmallExt has both the ChromeExtension and ExtensionManifest in 1 struct
