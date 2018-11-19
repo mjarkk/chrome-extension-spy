@@ -25,7 +25,8 @@ func EditExtension(extDir string, ext types.ChromeExtension, fullExt types.Exten
 		if err != nil {
 			return err
 		}
-		toWrite := strings.Replace(string(injectable), "--EXT-APP-ID--", ext.Pkg, 1) + string(file)
+		toWrite := strings.Replace(string(injectable), "--EXT-APP-ID--", ext.Pkg, -1)
+		toWrite = strings.Replace(toWrite, "/* --inject-here-- */", string(file), -1)
 		ioutil.WriteFile(fullFileDir, []byte(toWrite), 0777)
 	}
 	return nil
