@@ -5,7 +5,7 @@
   const CHROME_EXT_SPY_BAK_FETCH = window.fetch
   const CHROME_EXT_SPY_REPLACE_URI = uri => {
     const dubbleEncode = input => encodeURIComponent(encodeURIComponent(input))
-    const toReturn = /\/\/chrome\-extension/.test(uri)
+    const toReturn = uri.indexOf('chrome-extension') != -1
       ? uri
       : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${uri}`)
         ? `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(uri)}`
