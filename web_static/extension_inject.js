@@ -1,18 +1,16 @@
-(function () {
-
-  // TODO make this sand boxed because this is ran global
-  const CHROME_EXT_SPY_EXT_ID = '--EXT-APP-ID--'
-  const CHROME_EXT_SPY_BAK_FETCH = window.fetch
-  const CHROME_EXT_SPY_REPLACE_URI = uri => {
-    const dubbleEncode = input => encodeURIComponent(encodeURIComponent(input))
-    const toReturn = uri.indexOf('chrome-extension') != -1
-      ? uri
-      : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${uri}`)
-        ? `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(uri)}`
-        : `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri)}`
-    return toReturn
-  }
-
+CHROME_EXT_SPY_EXT_ID = '--EXT-APP-ID--'
+CHROME_EXT_SPY_BAK_FETCH = window.fetch
+CHROME_EXT_SPY_REPLACE_URI = uri => {
+  const dubbleEncode = input => encodeURIComponent(encodeURIComponent(input))
+  const toReturn = uri.indexOf('chrome-extension') != -1 || uri.indexOf('localhost%253A8080') != -1 || uri.indexOf('localhost:8080') != -1
+    ? uri
+    : /\/\/.+\/\//.test(`http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${uri}`)
+      ? `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(uri)}`
+      : `http://localhost:8080/proxy/${CHROME_EXT_SPY_EXT_ID}/${dubbleEncode(location.origin + location.pathname.replace(/\/$/, '') + (uri[0] == '/' ? '' : '/') + uri)}`
+  return toReturn
+}
+if (!window['fetchTest']) {
+  window['fetchTest'] = true
   window.fetch = (uri, options) => {
     return new Promise((resolve, reject) => {
       console.log('req url:', uri)
@@ -47,21 +45,20 @@
       .catch(reject)
     })
   }
+}
 
-  (function() {
-    var origOpen = XMLHttpRequest.prototype.open
-    XMLHttpRequest.prototype.open = function(type, uri) {
-      arguments[1] = CHROME_EXT_SPY_REPLACE_URI(arguments[1])
-      console.log('req url:', uri)
-      this.addEventListener('load',() => {
-        console.log('req status:', this.readyState)
-        console.log('req text:', this.responseText)
-      });
-      origOpen.apply(this, arguments);
-    };
-  })();
-
-  // inject the actual chrome extension here
-  /* --inject-here-- */
-
+(function() {
+  var origOpen = XMLHttpRequest.prototype.open
+  XMLHttpRequest.prototype.open = function(type, uri) {
+    arguments[1] = CHROME_EXT_SPY_REPLACE_URI(arguments[1])
+    console.log('req url:', uri)
+    this.addEventListener('load',() => {
+      console.log('req status:', this.readyState)
+      console.log('req text:', this.responseText)
+    });
+    origOpen.apply(this, arguments);
+  };
 })();
+
+// inject the actual chrome extension here
+/* --inject-here-- */
