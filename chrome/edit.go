@@ -19,15 +19,23 @@ func EditExtension(extDir string, ext types.ChromeExtension, fullExt types.Exten
 	if err != nil {
 		return err
 	}
-	for _, srcItem := range fullExt.Background.Scripts {
-		fullFileDir := path.Join(extDir, srcItem)
-		file, err := ioutil.ReadFile(fullFileDir)
-		if err != nil {
-			return err
+	toInjectItems := [][]string{
+		fullExt.Background.Scripts,
+	}
+	for _, contentScript := range fullExt.ContentScripts {
+		toInjectItems = append(toInjectItems, contentScript.Js)
+	}
+	for _, item := range toInjectItems {
+		for _, srcItem := range item {
+			fullFileDir := path.Join(extDir, srcItem)
+			file, err := ioutil.ReadFile(fullFileDir)
+			if err != nil {
+				return err
+			}
+			toWrite := strings.Replace(string(injectable), "--EXT-APP-ID--", ext.Pkg, -1)
+			toWrite = strings.Replace(toWrite, "/* --inject-here-- */", string(file), -1)
+			ioutil.WriteFile(fullFileDir, []byte(toWrite), 0777)
 		}
-		toWrite := strings.Replace(string(injectable), "--EXT-APP-ID--", ext.Pkg, -1)
-		toWrite = strings.Replace(toWrite, "/* --inject-here-- */", string(file), -1)
-		ioutil.WriteFile(fullFileDir, []byte(toWrite), 0777)
 	}
 	return nil
 }

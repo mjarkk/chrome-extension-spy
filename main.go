@@ -70,7 +70,7 @@ func run() error {
 
 func waitForExitInput() {
 	var input string
-	fmt.Print("Type exit to exit the program")
+	fmt.Print("Type exit to exit the program\n")
 	fmt.Scanf("%s", &input)
 	if input != "exit" {
 		waitForExitInput()
