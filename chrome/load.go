@@ -28,7 +28,7 @@ func GetExtensions(extensionsPath string) ([]types.ChromeExtension, []types.Exte
 			for _, versionDir := range files {
 				version = versionDir.Name()
 			}
-			dat, err := ioutil.ReadFile(path.Join(extensionPath, version, "/manifest.json"))
+			dat, err := ioutil.ReadFile(path.Join(extensionPath, version, "manifest.json"))
 			if err == nil {
 				var manifest types.ExtensionManifest
 				var addToReturnValue types.ChromeExtension
