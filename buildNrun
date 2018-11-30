@@ -1,5 +1,5 @@
 #!/bin/bash
-# A small script to build and run the program
+# A small script to build and run the program for devlopment
 
 # remove the cached folder
 rm -rf /tmp/chrome-extension-spy*
