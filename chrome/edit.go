@@ -15,7 +15,7 @@ func EditExtension(extDir string, ext types.ChromeExtension, fullExt types.Exten
 	if err != nil {
 		return err
 	}
-	injectable, err := ioutil.ReadFile(path.Join(thisFileDir, "../web_static/extension_inject.js"))
+	injectable, err := ioutil.ReadFile(path.Join(thisFileDir, "..", "web_static", "extension_inject.js"))
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,6 @@
+#!/bin/bash
+# build everything and make releases for all supported platforms
+
+cd ./release
+go build -o makeRelease
+./makeRelease

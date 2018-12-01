@@ -8,19 +8,15 @@ node_modules/
 .npm
 .yarn-integrity
 build/
-
-# Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-
-# Test binary, build with `go test -c`
 *.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-
 test/
 chrome-extension-spy*
+release/tempGoBuild
+release/makeRelease*
+release/builds

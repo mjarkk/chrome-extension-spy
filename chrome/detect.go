@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/user"
 	"path"
+	"runtime"
 )
 
 // Location returns the config location of the installed chrome
@@ -15,27 +16,38 @@ func Location(version string) string {
 		fmt.Println("can't get home directory")
 		os.Exit(1)
 	}
-	return path.Join(usr.HomeDir, "/.config/", version, "/Default/Extensions")
+	if runtime.GOOS == "windows" {
+		return path.Join(usr.HomeDir, "AppData", "Local", version, "User Data", "Default", "Extensions")
+	}
+	if runtime.GOOS == "darwin" {
+		return path.Join(usr.HomeDir, "Library", "Application Support", version, "Default", "Extensions")
+	}
+	// use linux dir as fallback
+	return path.Join(usr.HomeDir, ".config", version, "Default", "Extensions")
 }
 
 // GetLocation returns the config folder location of the current installed chrome
 func GetLocation() (string, error) {
-	if _, err := os.Stat(Location("chromium")); !os.IsNotExist(err) {
+	checkLocation := func(input string) bool {
+		_, err := os.Stat(Location("chromium"))
+		return !os.IsNotExist(err)
+	}
+	if checkLocation("chromium") {
 		return "chromium", nil
 	}
-	if _, err := os.Stat(Location("google-chrome")); !os.IsNotExist(err) {
+	if checkLocation("google-chrome") {
 		return "google-chrome", nil
 	}
-	if _, err := os.Stat(Location("google-chrome-beta")); !os.IsNotExist(err) {
+	if checkLocation("google-chrome-beta") {
 		return "google-chrome-beta", nil
 	}
-	if _, err := os.Stat(Location("google-chrome-dev")); !os.IsNotExist(err) {
+	if checkLocation("google-chrome-dev") {
 		return "google-chrome-dev", nil
 	}
-	if _, err := os.Stat(Location("google-chrome-unstable")); !os.IsNotExist(err) {
+	if checkLocation("google-chrome-unstable") {
 		return "google-chrome-unstable", nil
 	}
-	if _, err := os.Stat(Location("google-chrome-canary")); !os.IsNotExist(err) {
+	if checkLocation("google-chrome-canary") {
 		return "google-chrome-canary", nil
 	}
 	return "", errors.New("Chrome location not found")
