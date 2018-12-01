@@ -29,7 +29,7 @@ func Location(version string) string {
 // GetLocation returns the config folder location of the current installed chrome
 func GetLocation() (string, error) {
 	checkLocation := func(input string) bool {
-		_, err := os.Stat(Location("chromium"))
+		_, err := os.Stat(Location(input))
 		return !os.IsNotExist(err)
 	}
 	checks := []string{
