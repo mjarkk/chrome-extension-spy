@@ -114,7 +114,7 @@ func Compile() {
 			Run(goGet, projectDir)
 
 			// Build the go program
-			gox := "gox -output ./release/tempGoBuild/{{.Dir}}_{{.OS}}_{{.Arch}}"
+			gox := "gox -os windows -os linux -os darwin -output ./release/tempGoBuild/{{.Dir}}_{{.OS}}_{{.Arch}}"
 			fmt.Println("- running `" + gox + "` (this might take a while)")
 			Run(gox, projectDir)
 			waitJobs.Done()
