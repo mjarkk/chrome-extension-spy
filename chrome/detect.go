@@ -32,23 +32,24 @@ func GetLocation() (string, error) {
 		_, err := os.Stat(Location("chromium"))
 		return !os.IsNotExist(err)
 	}
-	if checkLocation("chromium") {
-		return "chromium", nil
+	checks := []string{
+		"chromium",
+		"google-chrome",
+		"google-chrome-beta",
+		"google-chrome-dev",
+		"google-chrome-unstable",
+		"google-chrome-canary",
+		path.Join("Google", "Chrome"),
+		path.Join("Google", "Chrome-beta"),
+		path.Join("Google", "Chrome-dev"),
+		path.Join("Google", "Chrome-unstable"),
+		path.Join("Google", "Chrome-canary"),
 	}
-	if checkLocation("google-chrome") {
-		return "google-chrome", nil
+	for _, check := range checks {
+		if checkLocation(check) {
+			return check, nil
+		}
 	}
-	if checkLocation("google-chrome-beta") {
-		return "google-chrome-beta", nil
-	}
-	if checkLocation("google-chrome-dev") {
-		return "google-chrome-dev", nil
-	}
-	if checkLocation("google-chrome-unstable") {
-		return "google-chrome-unstable", nil
-	}
-	if checkLocation("google-chrome-canary") {
-		return "google-chrome-canary", nil
-	}
+
 	return "", errors.New("Chrome location not found")
 }
