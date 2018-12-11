@@ -6,12 +6,13 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"runtime"
 	"strings"
 )
 
 // Launch launches chrome without any user provile
 // TODO: Fix the long time before command exits after closing google chrome
-func Launch(extsPath string, launchCommand string, forceClose chan struct{}) error {
+func Launch(extsPath string, chromeType string, forceClose chan struct{}) error {
 	tempDir, err := ioutil.TempDir("", "chrome-data")
 	if err != nil {
 		return err
@@ -33,7 +34,7 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 	}
 	allExts := strings.Join(dirs, ",")
 	cmd = exec.Command(
-		launchCommand,
+		chromeLocation(chromeType),
 		"--user-data-dir="+tempDir, // set the data dir in this case a empty dir to make sure chrome starts fully clean
 		"--disable-background-networking",
 		"--disable-background-timer-throttling",
@@ -61,4 +62,32 @@ func Launch(extsPath string, launchCommand string, forceClose chan struct{}) err
 	)
 	_, err = cmd.Output()
 	return err
+}
+
+func chromeLocation(chromeType string) string {
+	if runtime.GOOS == "windows" {
+		switch chromeType {
+		case "google-chrome", path.Join("Google", "Chrome"):
+			// normal google chrome
+			return "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+		case "chromium":
+			// chromium
+			return "C:\\Users\\mark\\AppData\\Local\\Chromium\\Application\\chrome.exe"
+		case "google-chrome-dev", path.Join("Google", "Chrome-dev"):
+			// google chrome dev
+			return "C:\\Program Files (x86)\\Google\\Chrome Dev\\Application\\chrome.exe"
+		case "google-chrome-beta", path.Join("Google", "Chrome-beta"):
+			// google chrome beta
+			return "C:\\Program Files (x86)\\Google\\Chrome Beta\\Application\\chrome.exe"
+		case "google-chrome-unstable", path.Join("Google", "Chrome-unstable"):
+			// google chrome unstable
+			return "C:\\Program Files (x86)\\Google\\Chrome Unstable\\Application\\chrome.exe"
+		case "google-chrome-canary", path.Join("Google", "Chrome-canary"):
+			// google chrome canary
+			return "C:\\Users\\mark\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe"
+		default:
+			return chromeType
+		}
+	}
+	return chromeType
 }
