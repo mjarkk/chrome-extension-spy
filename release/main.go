@@ -31,6 +31,8 @@ func main() {
 
 	fmt.Println("\nCleanup...")
 	Cleanup()
+
+	fmt.Println("\nSucsessfull created release zips, They are located under: ./release/builds/")
 }
 
 var currPath = ""
