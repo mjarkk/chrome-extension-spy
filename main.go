@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"flag"
 	"fmt"
 	"os"
 	"sync"
@@ -17,19 +19,26 @@ func main() {
 }
 
 func run() error {
+
+	isInfoMode := getFlags()
+	if isInfoMode {
+		getAppInfo()
+		os.Exit(0)
+	}
+
 	var extTmpDir = make(chan string)
 	var startWebServer = make(chan struct{})
 	var chromeCommand = ""
 	var extensions map[string]*types.FullAndSmallExt
 	go func() {
-		exts, chromeLaunchCommand, err := chrome.Setup(extTmpDir)
+		exts, chromeLaunchCommand, err := chrome.Setup(extTmpDir, isInfoMode)
 		extensions = exts
 		chromeCommand = chromeLaunchCommand
 		funs.PrintErr(err)
 		startWebServer <- struct{}{}
 	}()
 	tempDir := <-extTmpDir
-	fmt.Println(tempDir)
+
 	defer os.RemoveAll(tempDir)
 
 	// Wait for chrome to complete it's tasks
@@ -75,4 +84,32 @@ func waitForExitInput() {
 	if input != "exit" {
 		waitForExitInput()
 	}
+}
+
+func getFlags() (isInfoMode bool) {
+	isInfoPointer := flag.Bool("info", false, "Get info about this application")
+	flag.Parse()
+	return *isInfoPointer
+}
+
+func getAppInfo() error {
+	chromeCMD, err := chrome.GetLocation()
+	if err != nil {
+		fmt.Println("- ERROR: chrome not found")
+		return errors.New("chrome not found")
+	}
+	fmt.Println("- OK: chrome version:", chromeCMD)
+
+	chromeLoc := chrome.Location(chromeCMD)
+	fmt.Println("- OK: chrome extension path:", chromeLoc)
+
+	out, _ := chrome.GetExtensions(chromeLoc)
+	if len(out) == 0 {
+		fmt.Println("- ERROR: no extensions found")
+	} else {
+		fmt.Println("- OK:", len(out), "extensions found")
+	}
+
+	fmt.Println("- OK: command to launch chorme:", chrome.ChromeLocation(chromeCMD))
+	return nil
 }

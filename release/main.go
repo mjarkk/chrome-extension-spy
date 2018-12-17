@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"sync"
 )
@@ -41,11 +42,17 @@ var projectDir = ""
 // Check checks if the needed programs are installed
 func Check() {
 	fmt.Println("- checking if programs are installed")
+
+	checkGox := "which gox"
+	if runtime.GOOS == "windows" {
+		checkGox = "where /Q gox"
+	}
+
 	checks := map[string]string{
 		"node": "node --version",
 		"npm":  "npm --version",
 		"yarn": "yarn --version",
-		// "gox":  "gox -h", // TODO: find alternative to check this on windows
+		"gox":  checkGox,
 	}
 	for program, command := range checks {
 		err := Run(command, "")

@@ -11,7 +11,7 @@ import (
 )
 
 // Setup sets up the chrome part
-func Setup(extTmpDir chan string) (map[string]*types.FullAndSmallExt, string, error) {
+func Setup(extTmpDir chan string, testMode bool) (map[string]*types.FullAndSmallExt, string, error) {
 	returnExts := make(map[string]*types.FullAndSmallExt)
 	chromeCommand, err := GetLocation()
 	if err != nil {

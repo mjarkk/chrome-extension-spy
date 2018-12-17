@@ -34,7 +34,7 @@ func Launch(extsPath string, chromeType string, forceClose chan struct{}) error 
 	}
 	allExts := strings.Join(dirs, ",")
 	cmd = exec.Command(
-		chromeLocation(chromeType),
+		ChromeLocation(chromeType),
 		"--user-data-dir="+tempDir, // set the data dir in this case a empty dir to make sure chrome starts fully clean
 		"--disable-background-networking",
 		"--disable-background-timer-throttling",
@@ -64,7 +64,8 @@ func Launch(extsPath string, chromeType string, forceClose chan struct{}) error 
 	return err
 }
 
-func chromeLocation(chromeType string) string {
+// ChromeLocation returns a valid launch command for chrome
+func ChromeLocation(chromeType string) string {
 	if runtime.GOOS == "windows" {
 		switch chromeType {
 		case "google-chrome", path.Join("Google", "Chrome"):
