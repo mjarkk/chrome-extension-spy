@@ -22,7 +22,10 @@ func run() error {
 
 	isInfoMode := getFlags()
 	if isInfoMode {
-		getAppInfo()
+		err := getAppInfo()
+		if err != nil {
+			fmt.Println("- ERROR:", err.Error())
+		}
 		os.Exit(0)
 	}
 
@@ -95,7 +98,6 @@ func getFlags() (isInfoMode bool) {
 func getAppInfo() error {
 	chromeCMD, err := chrome.GetLocation()
 	if err != nil {
-		fmt.Println("- ERROR: chrome not found")
 		return errors.New("chrome not found")
 	}
 	fmt.Println("- OK: chrome version:", chromeCMD)
