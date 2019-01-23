@@ -8,6 +8,7 @@ import (
 	"path"
 	"runtime"
 	"strings"
+	"time"
 )
 
 // Launch launches chrome without any user provile
@@ -22,6 +23,11 @@ func Launch(extsPath string, chromeType string, forceClose chan struct{}) error 
 	go func() {
 		<-forceClose
 		fmt.Println("Trying to stop chrome process")
+		go func() {
+			time.Sleep(time.Second * 3)
+			fmt.Println("Cloud not stop chrome, killing program")
+			os.Exit(1)
+		}()
 		cmd.Process.Kill()
 	}()
 	files, err := ioutil.ReadDir(extsPath)

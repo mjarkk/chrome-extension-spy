@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -49,7 +50,12 @@ func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[stri
 	}()
 	<-forceClose
 	fmt.Println("Trying to stop web server")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	go func() {
+		time.Sleep(time.Second * 3)
+		fmt.Println("Cloud not stop chrome, killing program")
+		os.Exit(1)
+	}()
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		fmt.Println("Unable to shutdown the server run CTRL+C to force quit")
