@@ -9,16 +9,20 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/mjarkk/chrome-extension-spy/funs"
 )
 
 // Launch launches chrome without any user provile
 // TODO: Fix the long time before command exits after closing google chrome
-func Launch(extsPath string, chromeType string, forceClose chan struct{}) error {
+func Launch(extsPath string, chromeTmpDir chan string, chromeType string, forceClose chan struct{}) error {
 	tempDir, err := ioutil.TempDir("", "chrome-data")
 	if err != nil {
 		return err
 	}
-	defer os.RemoveAll(tempDir)
+
+	defer funs.RemoveTmpDirs([]string{tempDir, extsPath})
+
 	var cmd *exec.Cmd
 	go func() {
 		<-forceClose
@@ -39,6 +43,9 @@ func Launch(extsPath string, chromeType string, forceClose chan struct{}) error 
 		dirs = append(dirs, path.Join(extsPath, folderItem.Name()))
 	}
 	allExts := strings.Join(dirs, ",")
+
+	chromeTmpDir <- tempDir
+
 	cmd = exec.Command(
 		ChromeLocation(chromeType),
 		"--user-data-dir="+tempDir, // set the data dir in this case a empty dir to make sure chrome starts fully clean

@@ -2,14 +2,13 @@ package main
 
 import (
 	"errors"
-	"flag"
 	"fmt"
 	"os"
 	"sync"
 
 	"github.com/mjarkk/chrome-extension-spy/chrome"
+	"github.com/mjarkk/chrome-extension-spy/firefox"
 	"github.com/mjarkk/chrome-extension-spy/funs"
-	"github.com/mjarkk/chrome-extension-spy/types"
 	"github.com/mjarkk/chrome-extension-spy/webserver"
 )
 
@@ -20,8 +19,8 @@ func main() {
 
 func run() error {
 
-	isInfoMode := getFlags()
-	if isInfoMode {
+	flags := funs.GetFlags()
+	if flags.IsInfo {
 		err := getAppInfo()
 		if err != nil {
 			fmt.Println("- ERROR:", err.Error())
@@ -31,21 +30,28 @@ func run() error {
 
 	var extTmpDir = make(chan string)
 	var startWebServer = make(chan struct{})
+	var useFF = make(chan bool)
 	var chromeCommand = ""
-	var extensions map[string]*types.FullAndSmallExt
+
 	go func() {
-		exts, chromeLaunchCommand, err := chrome.Setup(extTmpDir, isInfoMode)
-		extensions = exts
-		chromeCommand = chromeLaunchCommand
+		cmd, err := chrome.Setup(extTmpDir, flags, useFF)
+		chromeCommand = cmd
 		funs.PrintErr(err)
 		startWebServer <- struct{}{}
 	}()
-	tempDir := <-extTmpDir
 
-	defer os.RemoveAll(tempDir)
+	tmpDir := ""
 
-	// Wait for chrome to complete it's tasks
-	<-startWebServer
+	if <-useFF {
+		fmt.Println("using firefox!")
+		firefox.Setup()
+		os.Exit(1)
+	} else {
+		tmpDir = <-extTmpDir
+
+		// Wait for chrome to complete it's tasks
+		<-startWebServer
+	}
 
 	var tasks sync.WaitGroup
 	tasks.Add(2)
@@ -54,13 +60,15 @@ func run() error {
 	var chromeErr error
 
 	forceClose := make(chan struct{})
+	chromeDirTmpDir := make(chan string)
 	go func() {
-		chromeErr = chrome.Launch(tempDir, chromeCommand, forceClose)
+		chromeErr = chrome.Launch(tmpDir, chromeDirTmpDir, chromeCommand, forceClose)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()
+	browserTmpDir := <-chromeDirTmpDir
 	go func() {
-		webserverErr = webserver.StartWebServer(tempDir, forceClose, extensions)
+		webserverErr = webserver.StartWebServer(tmpDir, browserTmpDir, forceClose)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()
@@ -87,12 +95,6 @@ func waitForExitInput() {
 	if input != "exit" {
 		waitForExitInput()
 	}
-}
-
-func getFlags() (isInfoMode bool) {
-	isInfoPointer := flag.Bool("info", false, "Get info about this application")
-	flag.Parse()
-	return *isInfoPointer
 }
 
 func getAppInfo() error {

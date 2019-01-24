@@ -103,8 +103,7 @@ const loadPopupData = item => {
 }
 
 const startSocketConection = () => {
-  const url = `ws://${location.host}/ws`
-  const ws = new WebSocket(url)
+  const ws = new WebSocket(`ws://${location.host}/ws`)
   ws.onmessage = msg => {
     const output = checkIfJson(msg.data)
     if (typeof output == 'object') {

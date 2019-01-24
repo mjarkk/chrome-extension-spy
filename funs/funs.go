@@ -1,6 +1,7 @@
 package funs
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -22,5 +23,35 @@ func PrintErr(err error) {
 		errMsg.Println("Program stopped because of an error:")
 		fmt.Println(err)
 		os.Exit(1)
+	}
+}
+
+// RemoveTmpDirs removes a list of input dirs
+func RemoveTmpDirs(dirs []string) {
+	for _, dir := range dirs {
+		if len(dir) > 0 {
+			os.RemoveAll(dir)
+		}
+	}
+}
+
+// Flags are the flags the program can show
+type Flags struct {
+	ForceFF     bool
+	ForceChrome bool
+	IsInfo      bool
+}
+
+// GetFlags returns the program setted flags
+func GetFlags() Flags {
+	isInfo := flag.Bool("info", false, "Get info about this application")
+	isFF := flag.Bool("isFF", false, "Force using firefox")
+	isChrome := flag.Bool("isChrome", false, "Force using chrome")
+
+	flag.Parse()
+	return Flags{
+		IsInfo:      *isInfo,
+		ForceChrome: *isChrome,
+		ForceFF:     *isFF,
 	}
 }

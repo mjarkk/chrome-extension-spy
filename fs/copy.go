@@ -8,8 +8,8 @@ import (
 )
 
 // CopyDir copys a full dir over to another direcotry
-func CopyDir(from string, to string, extensionDir []string) error {
-	extensionDirPath := path.Join(extensionDir...)
+func CopyDir(from string, to string, extensionDirs []string) error {
+	extensionDirPath := path.Join(extensionDirs...)
 	fullExtensionDirPath := path.Join(from, extensionDirPath)
 	files, err := ioutil.ReadDir(fullExtensionDirPath)
 	if err != nil {
@@ -21,7 +21,7 @@ func CopyDir(from string, to string, extensionDir []string) error {
 		if file.IsDir() {
 			// create a dir and loop over that dir
 			os.MkdirAll(path.Join(to, extensionDirPath, name), 0777)
-			CopyDir(from, to, append(extensionDir, name))
+			CopyDir(from, to, append(extensionDirs, name))
 		} else {
 			// copy a file over
 			from, err := os.Open(path.Join(fullExtensionDirPath, name))

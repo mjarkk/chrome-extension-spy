@@ -8,14 +8,17 @@ import (
 	"os"
 	"time"
 
+	"github.com/mjarkk/chrome-extension-spy/chrome"
+	"github.com/mjarkk/chrome-extension-spy/funs"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mjarkk/chrome-extension-spy/types"
 )
 
 // StartWebServer starts the web serve
-func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[string]*types.FullAndSmallExt) error {
-	extsMap = extenisons
+func StartWebServer(extsTmpDir string, browserTmpDir string, forceClose chan struct{}) error {
+	extsMap = chrome.ChromeExts
 	gin.SetMode("release")
 	r := gin.Default()
 	newReq := make(chan types.SmallRequest)
@@ -35,7 +38,7 @@ func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[stri
 	r.GET("/extensionsInfo", extensionsInfo)
 	r.GET("/requestInfo/:id", requestInfo)
 	r.GET("/extLogo/:extID", func(c *gin.Context) {
-		extLogo(c, tmpDir)
+		extLogo(c, extsTmpDir)
 	})
 	r.Static("/js/", "./web_static/build/js/")
 	r.StaticFile("/", "./web_static/build/index.html")
@@ -53,6 +56,7 @@ func StartWebServer(tmpDir string, forceClose chan struct{}, extenisons map[stri
 	go func() {
 		time.Sleep(time.Second * 3)
 		fmt.Println("Cloud not stop chrome, killing program")
+		funs.RemoveTmpDirs([]string{extsTmpDir, browserTmpDir})
 		os.Exit(1)
 	}()
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
