@@ -49,9 +49,6 @@ func run() error {
 		if len(f.TmpDirs.Profile) > 0 {
 			os.RemoveAll(f.TmpDirs.Profile)
 		}
-		if len(f.TmpDirs.UnpackExts) > 0 {
-			os.RemoveAll(f.TmpDirs.UnpackExts)
-		}
 		os.Exit(1)
 	} else {
 		tmpDir = <-extTmpDir

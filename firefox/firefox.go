@@ -1,5 +1,7 @@
 package firefox
 
+import "os"
+
 // FF is the main package
 type FF struct {
 	LaunchCMD           string // this is something like "firefox" on linux and something like "C:\Program Files\firefox\firefox.exe" on windows
@@ -36,6 +38,9 @@ func Setup() FF {
 	f.GetRawExts()
 	f.CreateEmptyProfile()
 	f.PackExtensions()
+	if len(f.TmpDirs.UnpackExts) > 0 {
+		os.RemoveAll(f.TmpDirs.UnpackExts)
+	}
 
 	return f
 }
