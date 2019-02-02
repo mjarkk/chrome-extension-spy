@@ -17,7 +17,7 @@ import (
 )
 
 // StartWebServer starts the web serve
-func StartWebServer(extsTmpDir string, browserTmpDir string, forceClose chan struct{}) error {
+func StartWebServer(extsTmpDir string, browserTmpDir string, isChrome bool, forceClose chan struct{}) error {
 	extsMap = chrome.ChromeExts
 	gin.SetMode("release")
 	r := gin.Default()

@@ -62,8 +62,7 @@ func GetFlags() Flags {
 
 // CommandExsists returns true a command exsists
 func CommandExsists(command string) bool {
-	cmd := exec.Command("which", command)
-	return cmd.Run() == nil
+	return exec.Command("which", command).Run() == nil
 }
 
 // Unzip unzips a zip file into a dir

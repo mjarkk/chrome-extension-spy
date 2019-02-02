@@ -38,3 +38,22 @@ func (f *FF) CreateEmptyProfile() {
 	)
 	cmd.Output()
 }
+
+// Launch launches firefox
+func (f *FF) Launch(kill chan struct{}) {
+	var cmd *exec.Cmd
+
+	go func() {
+		<-kill
+		fmt.Println("Closing firefox")
+		cmd.Process.Signal(os.Kill)
+	}()
+
+	cmd = exec.Command(
+		f.LaunchCMD,
+		"--profile", f.TmpDirs.Profile,
+		"-headless",
+		"about:addons", "http://localhost:8080#isFF",
+	)
+	cmd.Output()
+}

@@ -18,6 +18,12 @@ func main() {
 }
 
 func run() error {
+	extTmpDir := make(chan string)
+	startWebServer := make(chan struct{})
+	useFF := make(chan bool)
+	isChrome := true
+	chromeCommand := ""
+	var ff *firefox.FF
 
 	flags := funs.GetFlags()
 	if flags.IsInfo {
@@ -27,11 +33,6 @@ func run() error {
 		}
 		os.Exit(0)
 	}
-
-	var extTmpDir = make(chan string)
-	var startWebServer = make(chan struct{})
-	var useFF = make(chan bool)
-	var chromeCommand = ""
 
 	go func() {
 		cmd, err := chrome.Setup(extTmpDir, flags, useFF)
@@ -48,6 +49,11 @@ func run() error {
 		fmt.Println(f)
 		if len(f.TmpDirs.Profile) > 0 {
 			os.RemoveAll(f.TmpDirs.Profile)
+		}
+
+		if ff.Err() {
+			fmt.Println("!! Can't setup firefox, error:", ff.HasErr.Error(), "!!")
+			os.Exit(1)
 		}
 		os.Exit(1)
 	} else {
@@ -70,9 +76,10 @@ func run() error {
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()
+
 	browserTmpDir := <-chromeDirTmpDir
 	go func() {
-		webserverErr = webserver.StartWebServer(tmpDir, browserTmpDir, forceClose)
+		webserverErr = webserver.StartWebServer([]string{tmpDir, browserTmpDir}, forceClose)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()
