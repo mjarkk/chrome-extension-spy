@@ -79,7 +79,7 @@ func run() error {
 
 	browserTmpDir := <-chromeDirTmpDir
 	go func() {
-		webserverErr = webserver.StartWebServer([]string{tmpDir, browserTmpDir}, forceClose)
+		webserverErr = webserver.StartWebServer(tmpDir, browserTmpDir, isChrome, forceClose)
 		forceClose <- struct{}{}
 		tasks.Done()
 	}()
